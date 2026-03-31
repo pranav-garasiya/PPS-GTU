@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Harmonium Pro - Pranav Garasiya</title>
-    <!-- Web Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -289,16 +286,6 @@
         .bg-sunset { background: #e11d48; }
         .bg-ocean { background: #0284c7; }
         .bg-forest { background: #059669; }
-
-        /* Neon Text Animation */
-        .text-neon-glow {
-            text-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary);
-            animation: pulse-glow 2s infinite alternate;
-        }
-        @keyframes pulse-glow {
-            0% { text-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary); }
-            100% { text-shadow: 0 0 15px var(--primary-light), 0 0 30px var(--primary), 0 0 40px var(--primary); }
-        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center p-2 sm:p-4 lg:p-8">
@@ -329,7 +316,7 @@
                 </div>
 
                 <button id="powerBtn" class="px-6 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/40 border border-emerald-500/50 text-emerald-400 font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center gap-3">
-                    <i class="fas fa-power-off"></i> <span>Start Audio</span>
+                    <i class="fas fa-power-off"></i> <span>Audio Sharu Karo</span>
                 </button>
             </div>
         </div>
@@ -343,14 +330,14 @@
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5 flex flex-col gap-4">
                     <div>
                         <label class="text-xs font-bold uppercase mb-2 flex justify-between tracking-wider" style="color: var(--text-accent)">
-                            <span><i class="fas fa-volume-up mr-2"></i> Master Volume</span>
+                            <span><i class="fas fa-volume-up mr-2"></i> Awaaj (Vol)</span>
                             <span id="volDisplay" class="text-white">80%</span>
                         </label>
                         <input type="range" id="masterVolume" min="0" max="1" step="0.01" value="0.8" class="w-full">
                     </div>
                     <div>
                         <label class="text-xs font-bold uppercase mb-2 flex justify-between tracking-wider" style="color: var(--text-accent)">
-                            <span><i class="fas fa-water mr-2"></i> Reverb</span>
+                            <span><i class="fas fa-water mr-2"></i> Goonj (Reverb)</span>
                             <span id="reverbDisplay" class="text-white">25%</span>
                         </label>
                         <input type="range" id="reverbVolume" min="0" max="1" step="0.01" value="0.25" class="w-full">
@@ -360,7 +347,7 @@
                 <!-- Octave & Sustain -->
                 <div class="grid grid-cols-2 gap-2 h-full">
                     <div class="bg-black/20 p-3 rounded-2xl border border-white/5 flex flex-col justify-between items-center text-center">
-                        <label class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color: var(--text-accent)">Octave</label>
+                        <label class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color: var(--text-accent)">Saptak</label>
                         <div class="flex items-center gap-1 w-full justify-between">
                             <button id="octaveDown" class="px-2 py-1 bg-black/40 hover:bg-white/10 rounded transition-colors border border-white/10 text-xs font-bold text-white"><i class="fas fa-chevron-left"></i></button>
                             <span class="font-mono text-lg text-white font-bold" id="octaveDisplay">0</span>
@@ -370,7 +357,7 @@
                     </div>
 
                     <div class="bg-black/20 p-3 rounded-2xl border border-white/5 flex flex-col justify-center items-center">
-                        <label class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color: var(--text-accent)">Sustain</label>
+                        <label class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color: var(--text-accent)">Lambo Awaaj</label>
                         <button id="sustainBtn" class="sustain-btn w-full py-2 bg-slate-800 border border-slate-600 rounded-lg text-slate-300 text-xs font-bold transition-all shadow-lg flex flex-col items-center">
                             <span>SUSTAIN</span>
                             <span class="text-[8px] mt-1 font-normal opacity-70">Key: Spacebar</span>
@@ -382,7 +369,7 @@
             <!-- Middle Column: Instruments -->
             <div class="lg:col-span-5 flex flex-col gap-3 bg-black/20 p-4 rounded-2xl border border-white/5">
                 <div class="flex justify-between items-center mb-1">
-                    <label class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-accent)"><i class="fas fa-layer-group mr-2"></i> Instruments</label>
+                    <label class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-accent)"><i class="fas fa-layer-group mr-2"></i> Vadhya (Instruments)</label>
                     <span class="text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded border border-emerald-400/20">Mix/Layering Mode</span>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 h-full">
@@ -396,7 +383,7 @@
                         <i class="fas fa-violin text-lg mb-1"></i> Strings
                     </button>
                     <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="flute">
-                        <i class="fab fa-pagelines text-lg mb-1"></i> Flute
+                        <i class="fab fa-pagelines text-lg mb-1"></i> Bansuri
                     </button>
                     <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="organ">
                         <i class="fas fa-church text-lg mb-1"></i> Organ
@@ -416,7 +403,7 @@
             <!-- Right Column: Drones -->
             <div class="lg:col-span-4 flex flex-col gap-2 bg-black/20 p-4 rounded-2xl border border-white/5">
                 <div class="flex justify-between items-center mb-2">
-                    <label class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-accent)"><i class="fas fa-fan mr-2"></i> Continuous Drones</label>
+                    <label class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-accent)"><i class="fas fa-fan mr-2"></i> Satat Shruti (Drones)</label>
                 </div>
                 <div class="grid grid-cols-4 gap-y-4 gap-x-2 h-full content-center" id="droneContainer">
                     <!-- Drone switches injected here -->
@@ -427,7 +414,10 @@
         <!-- Keyboard Section -->
         <div class="p-6 bg-black/40 opacity-50 pointer-events-none transition-opacity duration-500 relative" id="keyboardSection">
             <div class="flex justify-between items-center mb-6 px-4">
-                <p class="text-sm font-medium tracking-wide" style="color: var(--text-accent)"><i class="fas fa-keyboard mr-1"></i> Perfect PC Mapping: Z to M (Octave 1) | Q to U (Octave 2) | I to ] (Octave 3)</p>
+                <p class="text-sm font-medium tracking-wide" style="color: var(--text-accent)"><i class="fas fa-keyboard mr-1"></i> Perfect PC Mapping: Z thi M (Saptak 1) | Q thi U (Saptak 2) | I thi ] (Saptak 3)</p>
+                <div class="text-xs text-emerald-400 font-bold bg-emerald-900/30 px-3 py-1 rounded-full border border-emerald-500/30">
+                    <i class="fas fa-code mr-1"></i> Developer: Pranav Garasiya
+                </div>
             </div>
             
             <div class="keyboard-wrapper">
@@ -444,25 +434,6 @@
             <!-- Bottom Reflection Glow -->
             <div class="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white/5 to-transparent pointer-events-none" style="opacity: 0.2; background: linear-gradient(to top, var(--primary), transparent);"></div>
         </div>
-
-        <!-- Integrated Status Bar / Footer -->
-        <div class="w-full bg-black/60 backdrop-blur-xl border-t border-white/10 px-6 py-3 flex justify-between items-center z-20 relative">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--primary-glow)] to-transparent opacity-20 pointer-events-none"></div>
-            
-            <!-- System Status -->
-            <div class="flex items-center gap-3 relative z-10">
-                <div class="w-2.5 h-2.5 rounded-full bg-slate-500 shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-all duration-300" id="statusLed"></div>
-                <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-semibold transition-colors duration-300" id="systemStatus">System Ready</span>
-            </div>
-            
-            <!-- Developer Name Tag -->
-            <div class="flex items-center gap-3 group cursor-default relative z-10">
-                <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-medium opacity-80">Developed By</span>
-                <div class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] transition-all duration-300 group-hover:bg-[var(--primary-glow)] group-hover:border-[var(--primary-light)]">
-                    <span class="text-xs sm:text-sm font-extrabold tracking-widest text-transparent bg-clip-text text-white text-neon-glow transition-all duration-300">PRANAV GARASIYA</span>
-                </div>
-            </div>
-        </div>
         
     </div>
 
@@ -473,17 +444,24 @@
         const NUM_KEYS = 37; // 3 Octaves (C3 to C6)
         
         // --- Perfect DAW Style PC Keyboard Mapping ---
+        // Octave 1: Z to M row
+        // Octave 2: Q to U row
+        // Octave 3: I to ] row
         const KEYBOARD_MAP = {
+            // Saptak 1 (C3 to B3) - 12 keys
             'z': 0, 's': 1, 'x': 2, 'd': 3, 'c': 4, 'v': 5, 'g': 6, 'b': 7, 'h': 8, 'n': 9, 'j': 10, 'm': 11,
+            // Saptak 2 (C4 to B4) - 12 keys
             'q': 12, '2': 13, 'w': 14, '3': 15, 'e': 16, 'r': 17, '5': 18, 't': 19, '6': 20, 'y': 21, '7': 22, 'u': 23,
+            // Saptak 3 (C5 to C6) - 13 keys
             'i': 24, '9': 25, 'o': 26, '0': 27, 'p': 28, '[': 29, '=': 30, ']': 31,
+            // Remaining top keys mapped to comma/period row for ease
             ',': 32, 'l': 33, '.': 34, ';': 35, '/': 36
         };
 
         // --- State ---
         let audioCtx = null;
         let masterGain = null;
-        let globalWetGain = null;
+        let globalWetGain = null; // Exposed for Reverb slider
         let activeInstruments = new Set(['harmonium']); 
         let octaveShift = 0;
         let isEngineStarted = false;
@@ -511,113 +489,66 @@
         const octaveDisplay = document.getElementById('octaveDisplay');
         const sustainBtn = document.getElementById('sustainBtn');
         const themeBtns = document.querySelectorAll('.theme-btn');
-        const systemStatus = document.getElementById('systemStatus');
-        const statusLed = document.getElementById('statusLed');
 
-        // --- Audio Engine Toggle & Initialization ---
-        async function toggleAudio() {
-            if (!audioCtx) {
-                // Initialize Audio Context for the first time
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-                
-                masterGain = audioCtx.createGain();
-                masterGain.gain.value = masterVolume.value;
-                
-                // Compressor
-                const compressor = audioCtx.createDynamicsCompressor();
-                compressor.threshold.setValueAtTime(-15, audioCtx.currentTime);
-                compressor.knee.setValueAtTime(30, audioCtx.currentTime);
-                compressor.ratio.setValueAtTime(10, audioCtx.currentTime);
-                compressor.attack.setValueAtTime(0.005, audioCtx.currentTime);
-                compressor.release.setValueAtTime(0.2, audioCtx.currentTime);
+        // --- Audio Engine Initialization ---
+        async function initAudio() {
+            if (audioCtx) return;
+            
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+            
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = masterVolume.value;
+            
+            // Compressor
+            const compressor = audioCtx.createDynamicsCompressor();
+            compressor.threshold.setValueAtTime(-15, audioCtx.currentTime);
+            compressor.knee.setValueAtTime(30, audioCtx.currentTime);
+            compressor.ratio.setValueAtTime(10, audioCtx.currentTime);
+            compressor.attack.setValueAtTime(0.005, audioCtx.currentTime);
+            compressor.release.setValueAtTime(0.2, audioCtx.currentTime);
 
-                masterGain.connect(compressor);
-                
-                // Reverb Effect Setup
-                const convolver = audioCtx.createConvolver();
-                const length = audioCtx.sampleRate * 2.5; 
-                const impulse = audioCtx.createBuffer(2, length, audioCtx.sampleRate);
-                for (let i = 0; i < 2; i++) {
-                    const channelData = impulse.getChannelData(i);
-                    for (let j = 0; j < length; j++) {
-                        channelData[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / length, 4);
-                    }
-                }
-                convolver.buffer = impulse;
-                
-                const dryGain = audioCtx.createGain();
-                globalWetGain = audioCtx.createGain();
-                
-                dryGain.gain.value = 0.8;
-                globalWetGain.gain.value = reverbVolume.value;
-
-                compressor.connect(dryGain);
-                compressor.connect(convolver);
-                
-                dryGain.connect(audioCtx.destination);
-                convolver.connect(globalWetGain);
-                globalWetGain.connect(audioCtx.destination);
-                
-                isEngineStarted = true;
-            } else {
-                // Toggle Suspend / Resume
-                if (audioCtx.state === 'running') {
-                    await audioCtx.suspend();
-                    isEngineStarted = false;
-                    
-                    // Stop all drones and uncheck visual boxes
-                    Object.keys(activeDrones).forEach(note => {
-                        releaseInstrumentVoice(activeDrones[note]);
-                        delete activeDrones[note];
-                    });
-                    document.querySelectorAll('.drone-switch').forEach(cb => cb.checked = false);
-                    
-                    releaseAllNotes();
-                } else if (audioCtx.state === 'suspended') {
-                    await audioCtx.resume();
-                    isEngineStarted = true;
+            masterGain.connect(compressor);
+            
+            // Reverb Effect Setup
+            const convolver = audioCtx.createConvolver();
+            const length = audioCtx.sampleRate * 2.5; 
+            const impulse = audioCtx.createBuffer(2, length, audioCtx.sampleRate);
+            for (let i = 0; i < 2; i++) {
+                const channelData = impulse.getChannelData(i);
+                for (let j = 0; j < length; j++) {
+                    channelData[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / length, 4);
                 }
             }
+            convolver.buffer = impulse;
+            
+            const dryGain = audioCtx.createGain();
+            globalWetGain = audioCtx.createGain();
+            
+            dryGain.gain.value = 0.8;
+            globalWetGain.gain.value = reverbVolume.value; // set from slider
 
-            // --- Update UI depending on state ---
-            if (isEngineStarted) {
-                powerBtn.classList.replace('bg-emerald-500/20', 'bg-red-600/50');
-                powerBtn.classList.replace('hover:bg-emerald-500/40', 'hover:bg-red-500');
-                powerBtn.classList.replace('border-emerald-500/50', 'border-red-500/50');
-                powerBtn.classList.replace('text-emerald-400', 'text-white');
-                powerBtn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.5)';
-                powerBtn.innerHTML = '<i class="fas fa-power-off"></i> <span>Stop Audio</span>';
-                
-                if(systemStatus && statusLed) {
-                    systemStatus.innerText = 'Audio Engine Active';
-                    systemStatus.style.color = '#34d399';
-                    statusLed.classList.replace('bg-slate-500', 'bg-emerald-400');
-                    statusLed.classList.add('animate-pulse');
-                    statusLed.style.boxShadow = '0 0 12px #34d399';
-                }
-                
-                mainControls.classList.remove('opacity-50', 'pointer-events-none');
-                keyboardSection.classList.remove('opacity-50', 'pointer-events-none');
-            } else {
-                powerBtn.classList.replace('bg-red-600/50', 'bg-emerald-500/20');
-                powerBtn.classList.replace('hover:bg-red-500', 'hover:bg-emerald-500/40');
-                powerBtn.classList.replace('border-red-500/50', 'border-emerald-500/50');
-                powerBtn.classList.replace('text-white', 'text-emerald-400');
-                powerBtn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.2)';
-                powerBtn.innerHTML = '<i class="fas fa-power-off"></i> <span>Start Audio</span>';
-                
-                if(systemStatus && statusLed) {
-                    systemStatus.innerText = 'System Paused';
-                    systemStatus.style.color = '#94a3b8'; // text-slate-400
-                    statusLed.classList.replace('bg-emerald-400', 'bg-slate-500');
-                    statusLed.classList.remove('animate-pulse');
-                    statusLed.style.boxShadow = '0 0 10px rgba(255,255,255,0.2)';
-                }
-                
-                mainControls.classList.add('opacity-50', 'pointer-events-none');
-                keyboardSection.classList.add('opacity-50', 'pointer-events-none');
+            compressor.connect(dryGain);
+            compressor.connect(convolver);
+            
+            dryGain.connect(audioCtx.destination);
+            convolver.connect(globalWetGain);
+            globalWetGain.connect(audioCtx.destination);
+
+            if (audioCtx.state === 'suspended') {
+                await audioCtx.resume();
             }
+
+            isEngineStarted = true;
+            powerBtn.classList.replace('bg-emerald-500/20', 'bg-red-500/20');
+            powerBtn.classList.replace('hover:bg-emerald-500/40', 'hover:bg-red-500/40');
+            powerBtn.classList.replace('border-emerald-500/50', 'border-red-500/50');
+            powerBtn.classList.replace('text-emerald-400', 'text-red-400');
+            powerBtn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.3)';
+            powerBtn.innerHTML = '<i class="fas fa-wave-square"></i> <span>Audio Chalik Chhe (Active)</span>';
+            
+            mainControls.classList.remove('opacity-50', 'pointer-events-none');
+            keyboardSection.classList.remove('opacity-50', 'pointer-events-none');
         }
 
         // --- Synthesis Functions ---
@@ -763,9 +694,7 @@
             const shiftedNote = midiNote + (octaveShift * 12);
             if (activeNotes[shiftedNote]) return; 
 
-            // FIX: Purano sustain note properly release karo jethi hanging sound na aave
             if (sustainedNotes[shiftedNote]) {
-                sustainedNotes[shiftedNote].forEach(voiceData => releaseInstrumentVoice(voiceData));
                 delete sustainedNotes[shiftedNote];
             }
 
@@ -932,7 +861,7 @@
         }
 
         // --- Event Listeners ---
-        powerBtn.addEventListener('click', toggleAudio);
+        powerBtn.addEventListener('click', initAudio);
         sustainBtn.addEventListener('click', toggleSustain);
 
         document.addEventListener('mouseup', () => { isMouseDown = false; });
