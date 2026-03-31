@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPS Exam Masterguide 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --sidebar-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --border: #334155;
+            --exam-tip-bg: #3f3f46;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        
+        aside { width: 300px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border); padding: 20px; overflow-y: auto; }
+        aside h2 { font-size: 1.5rem; color: var(--accent); margin-bottom: 20px; font-weight: 800; letter-spacing: 1px; border-bottom: 2px solid var(--border); padding-bottom: 10px;}
+        nav ul { list-style: none; }
+        nav ul li { margin-bottom: 10px; }
+        nav ul li a { text-decoration: none; color: var(--text-muted); font-weight: 600; display: block; padding: 10px 15px; border-radius: 8px; transition: all 0.3s ease; border: 1px solid transparent;}
+        nav ul li a:hover { background-color: var(--bg-color); color: var(--accent); border-color: var(--border); transform: translateX(5px); }
+
+        main { flex: 1; padding: 40px; overflow-y: auto; scroll-behavior: smooth; }
+        section { margin-bottom: 70px; scroll-margin-top: 40px; }
+        h1 { font-size: 2.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--text-main); }
+        h3 { font-size: 1.6rem; color: var(--accent); margin: 30px 0 15px 0; display: flex; align-items: center; gap: 10px;}
+        
+        .card { background-color: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        p, li { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 12px; }
+        ul, ol { padding-left: 25px; margin-bottom: 15px; }
+        
+        .exam-tip { background-color: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .exam-tip strong { color: #f59e0b; display: block; margin-bottom: 5px; font-size: 1.1rem;}
+        .exam-tip p { color: #d6d3d1; margin: 0;}
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: var(--bg-color); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: var(--accent); color: #fff; font-weight: 600; font-size: 1.1rem;}
+        td { color: var(--text-main); }
+
+        pre { background-color: #000; padding: 20px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border); margin: 15px 0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);}
+        code { font-family: 'Courier New', Courier, monospace; color: #34d399; font-size: 1rem; line-height: 1.5;}
+        .comment { color: #6b7280; font-style: italic; }
+        .keyword { color: #60a5fa; }
+        .string { color: #fca5a5; }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside>
+        <h2>PPS Masterguide</h2>
+        <nav>
+            <ul>
+                <li><a href="#unit2">1. C Program Structure</a></li>
+                <li><a href="#unit3">2. Conditional Statements</a></li>
+                <li><a href="#loops">3. Entry vs Exit Loops</a></li>
+                <li><a href="#unit4">4. Functions & Recursion</a></li>
+                <li><a href="#unit5">5. Strings & Arrays</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+
+        <!-- UNIT 2: STRUCTURE -->
+        <section id="unit2">
+            <h1>1. Basic Structure of C Program</h1>
+            
+            <div class="card">
+                <h3>The 6 Core Sections</h3>
+                
+                <p>Every standard C program is divided into 6 parts. Understanding this sequence is critical.</p>
+                <ol>
+                    <li><strong>Documentation Section:</strong> To write comments (Program name, author). Compiler ignores this.</li>
+                    <li><strong>Link Section:</strong> To include header files like <code>&lt;stdio.h&gt;</code>.</li>
+                    <li><strong>Definition Section:</strong> To define constants using <code>#define</code>.</li>
+                    <li><strong>Global Declaration Section:</strong> Variables declared here can be used by all functions.</li>
+                    <li><strong>main() Function Section:</strong> Execution always begins here. It is mandatory.</li>
+                    <li><strong>Subprogram Section:</strong> Contains user-defined functions written after main().</li>
+                </ol>
+
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip (How to write):</strong>
+                    <p>પ્રશ્ન પૂછાય એટલે સીધો ફકરો નથી લખવાનો. સૌથી પહેલા <b>આ 6 નામનું લિસ્ટ (1 થી 6)</b> પેપરની વચ્ચે લખી દેવું. ત્યારબાદ નીચે આપેલું ઉદાહરણ (કોડ) બોક્સ બનાવીને લખવું, અને છેલ્લે એ કોડની લાઈનોને વાક્યમાં સમજાવવી.</p>
+                </div>
+
+                <h4>Example 1: Full Structure</h4>
+<pre><code><span class="comment">// 1. Documentation Section: Program to calculate Area</span>
+<span class="comment">// Author: Pranav</span>
+
+<span class="comment">// 2. Link Section</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="comment">// 3. Definition Section</span>
+<span class="keyword">#define</span> PI 3.14
+
+<span class="comment">// 4. Global Declaration Section</span>
+<span class="keyword">float</span> area; 
+
+<span class="comment">// 5. main() Function</span>
+<span class="keyword">void</span> main() {
+    <span class="keyword">int</span> r = 5;
+    area = PI * r * r;
+    printf(<span class="string">"Area is: %f"</span>, area);
+}
+
+<span class="comment">// 6. Subprogram Section (If any custom functions are made, they go here)</span></code></pre>
+            </div>
+        </section>
+
+        <!-- UNIT 3: CONDITIONAL STATEMENTS -->
+        <section id="unit3">
+            <h1>2. Conditional Statements</h1>
+
+            <div class="card">
+                <h3>Switch-Case Statement</h3>
+                
+                <p>Switch case is a multi-way decision-making statement. It is an alternative to a long if-else-if ladder. It tests the value of a variable against a list of case values.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip (How to write):</strong>
+                    <p>સૌથી પહેલા Switch Case ની <b>Syntax</b> લખવી. પછી <b>Rules</b> લખવા (જેમ કે float ના વપરાય, break ફરજિયાત છે). અને છેલ્લે 1 ઉદાહરણ આપવું.</p>
+                </div>
+
+                <h4>Example 1: Day of the week</h4>
+<pre><code><span class="keyword">int</span> day = 2;
+<span class="keyword">switch</span>(day) {
+    <span class="keyword">case</span> 1:
+        printf(<span class="string">"Monday"</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> 2:
+        printf(<span class="string">"Tuesday"</span>); <span class="comment">// This will print</span>
+        <span class="keyword">break</span>;
+    <span class="keyword">default</span>:
+        printf(<span class="string">"Invalid Day"</span>);
+}</code></pre>
+
+                <h4>Example 2: Vowel or Consonant</h4>
+<pre><code><span class="keyword">char</span> ch = <span class="string">'A'</span>;
+<span class="keyword">switch</span>(ch) {
+    <span class="keyword">case</span> <span class="string">'A'</span>:
+    <span class="keyword">case</span> <span class="string">'E'</span>:
+    <span class="keyword">case</span> <span class="string">'I'</span>:
+    <span class="keyword">case</span> <span class="string">'O'</span>:
+    <span class="keyword">case</span> <span class="string">'U'</span>:
+        printf(<span class="string">"It is a Vowel"</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">default</span>:
+        printf(<span class="string">"It is a Consonant"</span>);
+}</code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Ternary (Conditional) Operator (?:)</h3>
+                <p>It is the only operator in C that requires 3 operands. It works like a short <code>if-else</code>.</p>
+                <p><strong>Syntax:</strong> <code>Condition ? Expression_1 (If True) : Expression_2 (If False);</code></p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip (How to write):</strong>
+                    <p>Syntax લખ્યા પછી, એક જ લાઈનના 2 ઉદાહરણ લખી દેવા. આ સૌથી રોકડા માર્ક્સ છે.</p>
+                </div>
+
+                <h4>Example 1: Maximum of two numbers</h4>
+<pre><code><span class="keyword">int</span> a = 10, b = 20, max;
+<span class="comment">// If a > b is true, max = a. Else max = b.</span>
+max = (a > b) ? a : b; 
+printf(<span class="string">"Max is: %d"</span>, max);</code></pre>
+
+                <h4>Example 2: Even or Odd</h4>
+<pre><code><span class="keyword">int</span> num = 5;
+(num % 2 == 0) ? printf(<span class="string">"Even"</span>) : printf(<span class="string">"Odd"</span>);</code></pre>
+            </div>
+        </section>
+
+        <!-- UNIT 3: LOOPS -->
+        <section id="loops">
+            <h1>3. Loops: Entry vs Exit Controlled</h1>
+
+            <div class="card">
+                <h3>Difference between while and do-while</h3>
+                http://googleusercontent.com/image_content/412
+
+
+                http://googleusercontent.com/image_content/414
+
+
+                <p>Loops are used to execute a block of code repeatedly.</p>
+
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip (How to write):</strong>
+                    <p>તફાવત (Difference) પૂછાય એટલે ફરજિયાત <b>T-Format (ટેબલ)</b> બનાવીને જ લખવું. છેલ્લો પોઈન્ટ બંનેની <b>Syntax</b> નો જ હોવો જોઈએ.</p>
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Entry Control Loop (while loop)</th>
+                        <th>Exit Control Loop (do-while loop)</th>
+                    </tr>
+                    <tr>
+                        <td>Condition is checked <b>before</b> entering the loop.</td>
+                        <td>Condition is checked <b>after</b> executing the loop body.</td>
+                    </tr>
+                    <tr>
+                        <td>If condition is false initially, loop will execute <b>ZERO</b> times.</td>
+                        <td>Even if condition is false initially, loop will execute <b>at least ONE time</b>.</td>
+                    </tr>
+                    <tr>
+                        <td>
+<pre><code><span class="keyword">while</span> (condition) {
+    <span class="comment">// statements</span>
+}</code></pre>
+                        </td>
+                        <td>
+<pre><code><span class="keyword">do</span> {
+    <span class="comment">// statements</span>
+} <span class="keyword">while</span> (condition);</code></pre>
+                        </td>
+                    </tr>
+                </table>
+
+                <h4>Example 1: Entry Control (while)</h4>
+<pre><code><span class="keyword">int</span> i = 10;
+<span class="comment">// Condition is checked first. 10 is not < 5.</span>
+<span class="comment">// Loop will NEVER run.</span>
+<span class="keyword">while</span>(i < 5) {
+    printf(<span class="string">"Hello"</span>);
+    i++;
+}</code></pre>
+
+                <h4>Example 2: Exit Control (do-while)</h4>
+<pre><code><span class="keyword">int</span> i = 10;
+<span class="comment">// Body runs first. Prints "Hello" once.</span>
+<span class="comment">// Then checks condition (10 < 5) which is false. Loop stops.</span>
+<span class="keyword">do</span> {
+    printf(<span class="string">"Hello"</span>);
+    i++;
+} <span class="keyword">while</span>(i < 5);</code></pre>
+            </div>
+        </section>
+
+        <!-- UNIT 4: FUNCTIONS -->
+        <section id="unit4">
+            <h1>4. Functions & Recursion</h1>
+
+            <div class="card">
+                <h3>What is Recursion?</h3>
+                <p>Recursion is a process in which a function calls itself directly or indirectly. A recursive function must have a "Base Condition" to stop the infinite loop.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip (How to write):</strong>
+                    <p>વ્યાખ્યા લખ્યા પછી એક <b>Factorial નો પ્રોગ્રામ</b> લખી દેવો. આ એક જ ઉદાહરણ બધે ચાલશે.</p>
+                </div>
+
+                <h4>Example: Factorial using Recursion</h4>
+<pre><code><span class="keyword">int</span> fact(<span class="keyword">int</span> n) {
+    <span class="comment">// Base Condition (To stop the loop)</span>
+    <span class="keyword">if</span> (n == 0 || n == 1) {
+        <span class="keyword">return</span> 1;
+    }
+    <span class="comment">// Recursive Call (Calling itself)</span>
+    <span class="keyword">else</span> {
+        <span class="keyword">return</span> n * fact(n - 1);
+    }
+}
+
+<span class="keyword">void</span> main() {
+    printf(<span class="string">"Factorial of 5 is: %d"</span>, fact(5));
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- UNIT 5: STRINGS -->
+        <section id="unit5">
+            <h1>5. String Handling Functions</h1>
+
+            <div class="card">
+                <p>Strings are array of characters. C provides ready-made functions to play with strings. Always include <code>&lt;string.h&gt;</code> to use them.</p>
+
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip (How to write):</strong>
+                    <p>આ પ્રશ્નમાં 5 મુખ્ય ફંક્શનના <b>નામ, તેનો ઉપયોગ અને 2 લાઈનનું ઉદાહરણ</b> બુલેટ પોઈન્ટ્સમાં લખવું.</p>
+                </div>
+
+                <ul>
+                    <li><strong>1. strlen(s1) :</strong> To find the length (number of characters) of a string.
+<pre><code><span class="keyword">char</span> name[] = <span class="string">"Pranav"</span>;
+<span class="keyword">int</span> len = strlen(name); <span class="comment">// len will be 6</span></code></pre>
+                    </li>
+                    
+                    <li><strong>2. strcpy(s1, s2) :</strong> To copy the content of string s2 into string s1.
+<pre><code><span class="keyword">char</span> s1[20];
+<span class="keyword">char</span> s2[] = <span class="string">"VGEC"</span>;
+strcpy(s1, s2); <span class="comment">// s1 becomes "VGEC"</span></code></pre>
+                    </li>
+
+                    <li><strong>3. strcat(s1, s2) :</strong> To concatenate (join) string s2 at the end of string s1.
+<pre><code><span class="keyword">char</span> s1[20] = <span class="string">"Hello "</span>;
+<span class="keyword">char</span> s2[] = <span class="string">"World"</span>;
+strcat(s1, s2); <span class="comment">// s1 becomes "Hello World"</span></code></pre>
+                    </li>
+
+                    <li><strong>4. strcmp(s1, s2) :</strong> To compare two strings. It returns 0 if both strings are exactly the same.
+<pre><code><span class="keyword">char</span> pass1[] = <span class="string">"admin123"</span>;
+<span class="keyword">char</span> pass2[] = <span class="string">"admin123"</span>;
+<span class="keyword">if</span>(strcmp(pass1, pass2) == 0) {
+    printf(<span class="string">"Login Successful"</span>);
+}</code></pre>
+                    </li>
+
+                    <li><strong>5. strrev(s1) :</strong> To reverse the given string.
+<pre><code><span class="keyword">char</span> str[] = <span class="string">"C-Lang"</span>;
+strrev(str); <span class="comment">// str becomes "gnaL-C"</span></code></pre>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
