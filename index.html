@@ -3,1035 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Harmonium Pro - Pranav Garasiya</title>
-    <!-- Web Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>PPS Ultimate Exam Guide | Animated Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- Dynamic Theme Variables --- */
         :root {
-            --bg-grad-1: #1e1b4b;
-            --bg-grad-2: #000000;
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
-            --primary-light: #818cf8;
-            --text-accent: #c7d2fe;
-            --panel-bg: rgba(17, 24, 39, 0.6);
-            --track-bg: #312e81;
+            --bg: #09090b;
+            --surface: rgba(24, 24, 27, 0.7);
+            --border: rgba(63, 63, 70, 0.5);
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --accent-1: #3b82f6; /* Blue */
+            --accent-2: #10b981; /* Green */
+            --accent-3: #f59e0b; /* Yellow (Tips) */
+            --code-bg: #000000;
         }
 
-        /* Sunset Theme */
-        body.theme-sunset {
-            --bg-grad-1: #4c0519;
-            --bg-grad-2: #1a0614;
-            --primary: #f43f5e;
-            --primary-glow: rgba(244, 63, 94, 0.4);
-            --primary-light: #fb7185;
-            --text-accent: #fecdd3;
-            --panel-bg: rgba(39, 17, 24, 0.6);
-            --track-bg: #881337;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-primary); 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
         }
 
-        /* Ocean Theme */
-        body.theme-ocean {
-            --bg-grad-1: #083344;
-            --bg-grad-2: #020617;
-            --primary: #0ea5e9;
-            --primary-glow: rgba(14, 165, 233, 0.4);
-            --primary-light: #38bdf8;
-            --text-accent: #bae6fd;
-            --panel-bg: rgba(8, 24, 39, 0.6);
-            --track-bg: #164e63;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-1); }
+
+        /* Sidebar */
+        aside { 
+            width: 300px; 
+            background: var(--surface); 
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--border); 
+            display: flex; 
+            flex-direction: column; 
+            z-index: 10;
+        }
+        .logo { 
+            padding: 30px 20px; 
+            font-size: 1.8rem; 
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800; 
+            border-bottom: 1px solid var(--border); 
+        }
+        nav { flex: 1; overflow-y: auto; padding: 20px 10px; }
+        nav ul { list-style: none; }
+        nav ul li { margin-bottom: 8px; }
+        nav ul li a { 
+            text-decoration: none; color: var(--text-secondary); 
+            font-weight: 600; display: block; padding: 12px 20px; 
+            border-radius: 8px; transition: 0.3s; 
+        }
+        nav ul li a:hover { 
+            background: rgba(59, 130, 246, 0.1); 
+            color: var(--text-primary); 
+            border-left: 4px solid var(--accent-1); 
         }
 
-        /* Forest Theme */
-        body.theme-forest {
-            --bg-grad-1: #064e3b;
-            --bg-grad-2: #022c22;
-            --primary: #10b981;
-            --primary-glow: rgba(16, 185, 129, 0.4);
-            --primary-light: #34d399;
-            --text-accent: #a7f3d0;
-            --panel-bg: rgba(17, 39, 24, 0.6);
-            --track-bg: #065f46;
+        /* Main Content */
+        main { 
+            flex: 1; padding: 40px 80px; overflow-y: auto; scroll-behavior: smooth; 
+            position: relative;
         }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: radial-gradient(circle at 50% 0%, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
-            color: #f8fafc;
-            user-select: none;
-            overflow-x: hidden;
-            min-height: 100vh;
-            transition: background 0.5s ease;
-        }
+        /* Animation Classes */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-        /* Glassmorphism Panels */
-        .glass-panel {
-            background: var(--panel-bg);
+        section { margin-bottom: 100px; scroll-margin-top: 40px; }
+        
+        h1 { font-size: 3rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 15px; color: var(--text-primary); letter-spacing: -1px;}
+        h2 { font-size: 1.8rem; color: var(--accent-1); margin: 40px 0 20px 0; display: flex; align-items: center; gap: 10px;}
+        h2::before { content: '⚡'; font-size: 1.5rem; }
+        
+        .card { 
+            background: var(--surface); 
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: background 0.5s ease;
+            border: 1px solid var(--border); 
+            border-radius: 16px; padding: 30px; margin-bottom: 30px; 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s;
         }
-
-        /* Keyboard Container */
-        .keyboard-wrapper {
-            overflow-x: auto;
-            padding-bottom: 20px;
-            padding-top: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) rgba(0,0,0,0.3);
-        }
+        .card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.3); }
         
-        .keyboard-wrapper::-webkit-scrollbar { height: 8px; }
-        .keyboard-wrapper::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
-        .keyboard-wrapper::-webkit-scrollbar-thumb { background-color: var(--primary); border-radius: 10px; }
+        p, li { font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 15px; }
+        ul, ol { padding-left: 25px; margin-bottom: 20px; }
 
-        .keyboard {
-            display: flex;
+        /* Exam Tip Box */
+        .exam-tip { 
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), transparent);
+            border-left: 4px solid var(--accent-3); 
+            padding: 20px; margin: 25px 0; border-radius: 0 12px 12px 0; 
+            animation: pulse-border 2s infinite alternate;
+        }
+        @keyframes pulse-border {
+            0% { border-left-color: var(--accent-3); }
+            100% { border-left-color: #fbbf24; box-shadow: -5px 0 15px rgba(245, 158, 11, 0.2); }
+        }
+        .exam-tip strong { color: var(--accent-3); display: block; margin-bottom: 8px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px;}
+        .exam-tip p { color: var(--text-primary); margin: 0; }
+
+        /* Code Blocks */
+        pre { 
+            background-color: var(--code-bg); padding: 25px; border-radius: 12px; 
+            overflow-x: auto; border: 1px solid var(--border); margin: 20px 0; 
             position: relative;
-            height: 280px;
-            margin: 0 auto;
-            width: max-content;
-            padding: 0 20px;
         }
+        pre::before {
+            content: '💻 Code'; position: absolute; top: 0; right: 0; 
+            background: var(--border); color: var(--text-secondary); 
+            padding: 4px 10px; font-size: 0.8rem; border-bottom-left-radius: 8px;
+        }
+        code { font-family: 'Fira Code', monospace; color: #a78bfa; font-size: 1.05rem; line-height: 1.6;}
+        .keyword { color: #f472b6; } /* Pink */
+        .type { color: #fbbf24; } /* Yellow */
+        .string { color: #34d399; } /* Green */
+        .comment { color: #71717a; font-style: italic; }
 
-        /* Visualizer LEDs */
-        .visualizer-container {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 24px;
-            margin-bottom: 10px;
-            width: max-content;
-            margin: 0 auto 10px auto;
-        }
-        .led {
-            width: 10px;
-            height: 4px;
-            background: #334155;
-            border-radius: 4px;
-            margin: 0 23px;
-            transition: all 0.05s;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
-        }
-        .led.active {
-            background: var(--primary-light);
-            box-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary);
-            transform: scale(1.2);
-        }
+        /* Tables */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 20px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        th, td { padding: 18px; text-align: left; border-bottom: 1px solid var(--border); background: var(--surface); }
+        th { background-color: rgba(59, 130, 246, 0.2); color: var(--accent-1); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; }
 
-        /* Keys */
-        .key {
-            box-sizing: border-box;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .key-white {
-            width: 56px;
-            height: 100%;
-            background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
-            border: 1px solid #cbd5e1;
-            border-radius: 0 0 8px 8px;
-            z-index: 1;
-            margin-right: 2px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 15px;
-            color: #475569;
-            font-weight: 700;
-            font-size: 0.85rem;
-            box-shadow: 0 6px 10px rgba(0,0,0,0.3), inset 0 1px 0 #fff;
-        }
-
-        .key-white.active, .key-white:active {
-            background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
-            transform: translateY(4px) rotateX(2deg);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 2px 5px rgba(0,0,0,0.1), 0 0 15px rgba(255, 255, 255, 0.3);
-            color: var(--primary);
-        }
-
-        .key-black {
-            width: 36px;
-            height: 62%;
-            background: linear-gradient(180deg, #1e293b 0%, #020617 100%);
-            border: 1px solid #000;
-            border-radius: 0 0 6px 6px;
-            z-index: 2;
-            position: absolute;
-            left: 37px;
-            transform: translateX(-50%);
-            box-shadow: 3px 6px 12px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.2);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 10px;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.65rem;
-        }
-
-        .key-black.active, .key-black:active {
-            background: linear-gradient(180deg, #0f172a 0%, #000000 100%);
-            transform: translateX(-50%) translateY(4px);
-            box-shadow: 1px 2px 5px rgba(0,0,0,0.8), 0 0 15px var(--primary-glow);
-            color: var(--primary-light);
-        }
-
-        /* Instrument Buttons */
-        .inst-btn {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .inst-btn.active {
-            background: var(--primary-glow);
-            border-color: var(--primary);
-            color: var(--text-accent);
-            box-shadow: 0 0 15px var(--primary-glow), inset 0 0 10px var(--primary-glow);
-        }
-        .inst-btn.active::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--primary-light);
-            box-shadow: 0 0 8px var(--primary-light);
-        }
-
-        /* Sliders */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            cursor: pointer;
-            margin-top: -6px;
-            box-shadow: 0 0 10px var(--primary-light);
-            transition: background 0.3s;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: var(--track-bg);
-            border-radius: 2px;
-            transition: background 0.3s;
-        }
-
-        /* Drone Switches */
-        .drone-switch {
-            appearance: none;
-            width: 36px;
-            height: 18px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 18px;
-            position: relative;
-            cursor: pointer;
-            outline: none;
-            border: 1px solid var(--track-bg);
-            transition: all 0.3s;
-        }
-        .drone-switch::after {
-            content: '';
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            width: 14px;
-            height: 14px;
-            background: #64748b;
-            border-radius: 50%;
-            transition: transform 0.3s, background 0.3s;
-        }
-        .drone-switch:checked {
-            background: var(--primary-glow);
-            border-color: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-        .drone-switch:checked::after {
-            transform: translateX(18px);
-            background: var(--primary-light);
-            box-shadow: 0 0 5px var(--primary-light);
-        }
-
-        /* Sustain Button */
-        .sustain-btn.active {
-            background: rgba(234, 179, 8, 0.2);
-            border-color: #eab308;
-            color: #fef08a;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.3);
-        }
-
-        /* Theme Selector Buttons */
-        .theme-btn {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s;
-        }
-        .theme-btn:hover { transform: scale(1.1); }
-        .theme-btn.active { border-color: #fff; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        
-        .bg-midnight { background: #4f46e5; }
-        .bg-sunset { background: #e11d48; }
-        .bg-ocean { background: #0284c7; }
-        .bg-forest { background: #059669; }
-
-        /* Neon Text Animation */
-        .text-neon-glow {
-            text-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary);
-            animation: pulse-glow 2s infinite alternate;
-        }
-        @keyframes pulse-glow {
-            0% { text-shadow: 0 0 10px var(--primary-light), 0 0 20px var(--primary); }
-            100% { text-shadow: 0 0 15px var(--primary-light), 0 0 30px var(--primary), 0 0 40px var(--primary); }
-        }
+        /* Details / Summary */
+        details { background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        summary { font-weight: 600; color: var(--accent-2); cursor: pointer; outline: none; font-size: 1.2rem; }
+        details p { margin-top: 15px; }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center p-2 sm:p-4 lg:p-8">
+<body>
 
-    <!-- Main Synthesizer Container -->
-    <div class="w-full max-w-7xl glass-panel rounded-3xl overflow-hidden flex flex-col relative">
-        
-        <!-- Header -->
-        <div class="px-6 py-5 border-b border-white/10 flex flex-wrap gap-4 justify-between items-center bg-black/20">
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center shadow-lg border border-white/10">
-                    <i class="fas fa-wave-square text-white text-xl" style="color: var(--primary-light)"></i>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-extrabold tracking-widest text-transparent bg-clip-text text-white" style="text-shadow: 0 0 10px var(--primary-glow);">WEB HARMONIUM <span style="color: var(--primary-light)">PRO</span></h1>
-                    <p class="text-xs font-semibold tracking-[0.2em] uppercase" style="color: var(--text-accent)">Advance Multi-Layer System</p>
-                </div>
-            </div>
+    <!-- Sidebar Navigation -->
+    <aside>
+        <div class="logo">PPS Master 2026</div>
+        <nav>
+            <ul>
+                <li><a href="#intro">1. Computer & Algo</a></li>
+                <li><a href="#c-basics">2. C Structure & Data Types</a></li>
+                <li><a href="#control">3. Control Structures (If/Switch)</a></li>
+                <li><a href="#loops">4. Loops (Entry/Exit)</a></li>
+                <li><a href="#arrays">5. Arrays & Strings</a></li>
+                <li><a href="#functions">6. Functions & Recursion</a></li>
+                <li><a href="#pointers">7. Pointers (Detailed)</a></li>
+                <li><a href="#struct">8. Structure vs Union</a></li>
+                <li><a href="#file-dma">9. File Handling & DMA</a></li>
+                <li><a href="index02.html">10. Advanced Topics</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Unit 1 -->
+        <section id="intro" class="fade-in">
+            <h1>1. Computer Fundamentals & Algorithms</h1>
             
-            <div class="flex items-center gap-6">
-                <!-- Theme Selector -->
-                <div class="hidden sm:flex items-center gap-2 bg-black/30 px-3 py-1.5 rounded-full border border-white/5">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase mr-1">Theme:</span>
-                    <button class="theme-btn bg-midnight active" data-theme="theme-midnight" title="Midnight"></button>
-                    <button class="theme-btn bg-sunset" data-theme="theme-sunset" title="Sunset"></button>
-                    <button class="theme-btn bg-ocean" data-theme="theme-ocean" title="Ocean"></button>
-                    <button class="theme-btn bg-forest" data-theme="theme-forest" title="Forest"></button>
-                </div>
-
-                <button id="powerBtn" class="px-6 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/40 border border-emerald-500/50 text-emerald-400 font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center gap-3">
-                    <i class="fas fa-power-off"></i> <span>Start Audio</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Controls Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 border-b border-white/10 opacity-50 pointer-events-none transition-opacity duration-500" id="mainControls">
-            
-            <!-- Left Column: Vol, Reverb & Octave -->
-            <div class="lg:col-span-3 flex flex-col gap-4">
-                <!-- Volume & Reverb -->
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5 flex flex-col gap-4">
-                    <div>
-                        <label class="text-xs font-bold uppercase mb-2 flex justify-between tracking-wider" style="color: var(--text-accent)">
-                            <span><i class="fas fa-volume-up mr-2"></i> Master Volume</span>
-                            <span id="volDisplay" class="text-white">80%</span>
-                        </label>
-                        <input type="range" id="masterVolume" min="0" max="1" step="0.01" value="0.8" class="w-full">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold uppercase mb-2 flex justify-between tracking-wider" style="color: var(--text-accent)">
-                            <span><i class="fas fa-water mr-2"></i> Reverb</span>
-                            <span id="reverbDisplay" class="text-white">25%</span>
-                        </label>
-                        <input type="range" id="reverbVolume" min="0" max="1" step="0.01" value="0.25" class="w-full">
-                    </div>
-                </div>
+            <div class="card">
+                <h2>Block Diagram of Computer</h2>
+                <p>Computer is made up of mainly four components:</p>
+                <ol>
+                    <li><strong>Input Section:</strong> Converts human input to computer data (Mouse, Keyboard).</li>
+                    <li><strong>Central Processing Unit (CPU):</strong> The brain. Consists of:
+                        <ul>
+                            <li><strong>ALU (Arithmetic Logic Unit):</strong> Performs math calculations and logic.</li>
+                            <li><strong>CU (Control Unit):</strong> Manages operations and reads instructions.</li>
+                            <li><strong>Primary Memory:</strong> RAM (Volatile) & ROM (Permanent). Directly accessed by CPU.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Output Section:</strong> Converts 0s and 1s to human understandable info (Monitor, Printer).</li>
+                    <li><strong>Secondary Memory:</strong> Hard disk, Pen drive for permanent storage.</li>
+                </ol>
                 
-                <!-- Octave & Sustain -->
-                <div class="grid grid-cols-2 gap-2 h-full">
-                    <div class="bg-black/20 p-3 rounded-2xl border border-white/5 flex flex-col justify-between items-center text-center">
-                        <label class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color: var(--text-accent)">Octave</label>
-                        <div class="flex items-center gap-1 w-full justify-between">
-                            <button id="octaveDown" class="px-2 py-1 bg-black/40 hover:bg-white/10 rounded transition-colors border border-white/10 text-xs font-bold text-white"><i class="fas fa-chevron-left"></i></button>
-                            <span class="font-mono text-lg text-white font-bold" id="octaveDisplay">0</span>
-                            <button id="octaveUp" class="px-2 py-1 bg-black/40 hover:bg-white/10 rounded transition-colors border border-white/10 text-xs font-bold text-white"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        <span class="text-[8px] mt-1 opacity-70" style="color: var(--primary-light)">Key: &larr; &rarr;</span>
-                    </div>
-
-                    <div class="bg-black/20 p-3 rounded-2xl border border-white/5 flex flex-col justify-center items-center">
-                        <label class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color: var(--text-accent)">Sustain</label>
-                        <button id="sustainBtn" class="sustain-btn w-full py-2 bg-slate-800 border border-slate-600 rounded-lg text-slate-300 text-xs font-bold transition-all shadow-lg flex flex-col items-center">
-                            <span>SUSTAIN</span>
-                            <span class="text-[8px] mt-1 font-normal opacity-70">Key: Spacebar</span>
-                        </button>
-                    </div>
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>પ્રશ્ન પૂછાય એટલે પહેલા <b>બ્લોક ડાયાગ્રામ (ચોરસ બોક્સ અને એરો વાળું ચિત્ર)</b> ફરજિયાત દોરવું. ડાયાગ્રામ ના જ 50% માર્ક્સ હોય છે!</p>
                 </div>
             </div>
 
-            <!-- Middle Column: Instruments -->
-            <div class="lg:col-span-5 flex flex-col gap-3 bg-black/20 p-4 rounded-2xl border border-white/5">
-                <div class="flex justify-between items-center mb-1">
-                    <label class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-accent)"><i class="fas fa-layer-group mr-2"></i> Instruments</label>
-                    <span class="text-[10px] text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded border border-emerald-400/20">Mix/Layering Mode</span>
-                </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 h-full">
-                    <button class="inst-btn active p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="harmonium">
-                        <i class="fas fa-wind text-lg mb-1"></i> Harmonium
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="piano">
-                        <i class="fas fa-keyboard text-lg mb-1"></i> Elec Piano
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="strings">
-                        <i class="fas fa-violin text-lg mb-1"></i> Strings
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="flute">
-                        <i class="fab fa-pagelines text-lg mb-1"></i> Flute
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="organ">
-                        <i class="fas fa-church text-lg mb-1"></i> Organ
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="synth">
-                        <i class="fas fa-bolt text-lg mb-1"></i> Synth Lead
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="brass">
-                        <i class="fas fa-bullhorn text-lg mb-1"></i> Brass
-                    </button>
-                    <button class="inst-btn p-2 bg-black/40 text-slate-300 border border-white/10 rounded-xl text-xs font-semibold flex flex-col items-center justify-center gap-1" data-inst="pluck">
-                        <i class="fas fa-guitar text-lg mb-1"></i> Pluck Guitar
-                    </button>
-                </div>
+            <div class="card">
+                <h2>Algorithm vs Flowchart</h2>
+                <details>
+                    <summary>Click to view differences and symbols</summary>
+                    <table>
+                        <tr><th>Algorithm</th><th>Flowchart</th></tr>
+                        <tr><td>Step-by-step written procedure in English.</td><td>Pictorial/Graphical representation of a process.</td></tr>
+                        <tr><td>Easy to write for complex problems.</td><td>Difficult to draw and modify for big problems.</td></tr>
+                    </table>
+                    <p><strong>Flowchart Symbols:</strong> Oval (Start/Stop), Parallelogram (Input/Output), Rectangle (Process/Calculation), Diamond (Decision/If-Else).</p>
+                </details>
             </div>
+        </section>
 
-            <!-- Right Column: Drones -->
-            <div class="lg:col-span-4 flex flex-col gap-2 bg-black/20 p-4 rounded-2xl border border-white/5">
-                <div class="flex justify-between items-center mb-2">
-                    <label class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-accent)"><i class="fas fa-fan mr-2"></i> Continuous Drones</label>
-                </div>
-                <div class="grid grid-cols-4 gap-y-4 gap-x-2 h-full content-center" id="droneContainer">
-                    <!-- Drone switches injected here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Keyboard Section -->
-        <div class="p-6 bg-black/40 opacity-50 pointer-events-none transition-opacity duration-500 relative" id="keyboardSection">
-            <div class="flex justify-between items-center mb-6 px-4">
-                <p class="text-sm font-medium tracking-wide" style="color: var(--text-accent)"><i class="fas fa-keyboard mr-1"></i> Perfect PC Mapping: Z to M (Octave 1) | Q to U (Octave 2) | I to ] (Octave 3)</p>
-            </div>
+        <!-- Unit 2 -->
+        <section id="c-basics" class="fade-in">
+            <h1>2. C Fundamentals & Data Types</h1>
             
-            <div class="keyboard-wrapper">
-                <!-- Visualizer Array -->
-                <div class="visualizer-container" id="visualizer">
-                    <!-- LEDs injected here -->
+            <div class="card">
+                <h2>Basic Structure of C Program</h2>
+                <p>There are 6 mandatory sections in a professional C program.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>આ 6 નામ ક્રમમાં લખીને નીચેનો કોડ એક્ઝામ્પલ તરીકે છાપી દેવો.</p>
                 </div>
 
-                <div class="keyboard" id="keyboard">
-                    <!-- Keys injected here -->
-                </div>
-            </div>
-            
-            <!-- Bottom Reflection Glow -->
-            <div class="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white/5 to-transparent pointer-events-none" style="opacity: 0.2; background: linear-gradient(to top, var(--primary), transparent);"></div>
-        </div>
+<pre><code><span class="comment">// 1. Documentation Section</span>
+<span class="comment">/* Program to find Area */</span>
 
-        <!-- Integrated Status Bar / Footer -->
-        <div class="w-full bg-black/60 backdrop-blur-xl border-t border-white/10 px-6 py-3 flex justify-between items-center z-20 relative">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--primary-glow)] to-transparent opacity-20 pointer-events-none"></div>
-            
-            <!-- System Status -->
-            <div class="flex items-center gap-3 relative z-10">
-                <div class="w-2.5 h-2.5 rounded-full bg-slate-500 shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-all duration-300" id="statusLed"></div>
-                <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-semibold transition-colors duration-300" id="systemStatus">System Ready</span>
-            </div>
-            
-            <!-- Developer Name Tag -->
-            <div class="flex items-center gap-3 group cursor-default relative z-10">
-                <span class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-medium opacity-80">Developed By</span>
-                <div class="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] transition-all duration-300 group-hover:bg-[var(--primary-glow)] group-hover:border-[var(--primary-light)]">
-                    <span class="text-xs sm:text-sm font-extrabold tracking-widest text-transparent bg-clip-text text-white text-neon-glow transition-all duration-300">PRANAV GARASIYA</span>
-                </div>
-            </div>
-        </div>
-        
-    </div>
+<span class="comment">// 2. Link Section</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
 
+<span class="comment">// 3. Definition Section</span>
+<span class="keyword">#define</span> PI 3.14
+
+<span class="comment">// 4. Global Declaration Section</span>
+<span class="type">int</span> r = 10; 
+
+<span class="comment">// 5. main() Function</span>
+<span class="type">void</span> <span class="keyword">main</span>() {
+    <span class="type">float</span> area;
+    area = PI * r * r;
+    printf(<span class="string">"Area is: %f"</span>, area);
+}
+<span class="comment">// 6. Subprogram Section (User defined functions go here)</span></code></pre>
+            </div>
+
+            <div class="card">
+                <h2>Primary Data Types</h2>
+                <table>
+                    <tr><th>Data Type</th><th>Size</th><th>Range / Example</th></tr>
+                    <tr><td><code>int</code></td><td>2 Bytes (16 bits)</td><td>-32768 to 32767</td></tr>
+                    <tr><td><code>char</code></td><td>1 Byte (8 bits)</td><td>-128 to 127 (e.g., 'A')</td></tr>
+                    <tr><td><code>float</code></td><td>4 Bytes (32 bits)</td><td>6 decimal precision (e.g., 3.14159)</td></tr>
+                    <tr><td><code>double</code></td><td>8 Bytes (64 bits)</td><td>14 decimal precision</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Unit 3 -->
+        <section id="control" class="fade-in">
+            <h1>3. Decision Control Structures</h1>
+            
+            <div class="card">
+                <h2>The switch-case Statement</h2>
+                <p>It is a multi-way decision-making tool. Used when we have many choices (menu-driven programs).</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>યાદ રાખજો: <code>switch</code> માં <code>float</code> વેલ્યૂ ક્યારેય ના મુકાય. દરેક <code>case</code> પછી <code>break;</code> લખવું જરૂરી છે, નહિતર બધા જ કેસ રન થઇ જશે (જેને fall-through કહેવાય).</p>
+                </div>
+
+<pre><code><span class="type">int</span> choice = 2;
+<span class="keyword">switch</span> (choice) {
+    <span class="keyword">case</span> 1:
+        printf(<span class="string">"Option 1 Selected"</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> 2:
+        printf(<span class="string">"Option 2 Selected"</span>);
+        <span class="keyword">break</span>; <span class="comment">// Stops execution and exits switch</span>
+    <span class="keyword">default</span>:
+        printf(<span class="string">"Invalid Choice"</span>);
+}</code></pre>
+            </div>
+
+            <div class="card">
+                <h2>Conditional (Ternary) Operator (?:)</h2>
+                <p>The only operator taking 3 operands. Perfect alternative for simple if-else.</p>
+                <p><strong>Syntax:</strong> <code>Condition ? True_Execution : False_Execution;</code></p>
+<pre><code><span class="type">int</span> a = 50, b = 20, max;
+<span class="comment">// Read as: If a > b is true, return a, else return b.</span>
+max = (a > b) ? a : b; 
+printf(<span class="string">"Maximum is: %d"</span>, max);</code></pre>
+            </div>
+        </section>
+
+        <!-- Unit 4 -->
+        <section id="loops" class="fade-in">
+            <h1>4. Loop Control (Entry vs Exit)</h1>
+            
+            <div class="card">
+                <h2>Entry Control Loop vs Exit Control Loop</h2>
+                <p>This is the most frequently asked comparison. Present it exactly as a table.</p>
+
+                <table>
+                    <tr>
+                        <th>Entry Control Loop (while, for)</th>
+                        <th>Exit Control Loop (do-while)</th>
+                    </tr>
+                    <tr>
+                        <td>Condition is checked <b>FIRST</b>, before entering the body.</td>
+                        <td>Condition is checked <b>LAST</b>, after executing the body.</td>
+                    </tr>
+                    <tr>
+                        <td>If condition is false initially, it executes <b>ZERO</b> times.</td>
+                        <td>Even if false, it is guaranteed to execute <b>AT LEAST ONCE</b>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>while(i &lt; 5) { /* body */ }</code></td>
+                        <td><code>do { /* body */ } while(i &lt; 5);</code></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Break, Continue & Goto</h2>
+                <ul>
+                    <li><strong>break:</strong> Jumps OUT of the loop entirely. Loop stops.</li>
+                    <li><strong>continue:</strong> Skips ONLY the current step and forces the next iteration of the loop.</li>
+                    <li><strong>goto:</strong> Jumps to a specific label anywhere in the code. Avoid using it as it creates "Spaghetti code".</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Unit 5 -->
+        <section id="arrays" class="fade-in">
+            <h1>5. Arrays & String Handling</h1>
+            
+            <div class="card">
+                <h2>String Handling Functions</h2>
+                <p>Strings are character arrays ending with <code>\0</code> (Null). Include <code>&lt;string.h&gt;</code> to use these magic functions:</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>દરેક ફંક્શનની સમજૂતી આપીને આ એક-એક લાઈનનું ઉદાહરણ બેઠું લખી દેવું.</p>
+                </div>
+
+                <details>
+                    <summary>1. strlen(s1) - Find Length</summary>
+                    <p>Returns the total number of characters (excluding \0).</p>
+                    <pre><code><span class="type">int</span> len = strlen(<span class="string">"Pranav"</span>); <span class="comment">// Returns 6</span></code></pre>
+                </details>
+                
+                <details>
+                    <summary>2. strcpy(s1, s2) - Copy String</summary>
+                    <p>Copies the contents of string s2 into string s1.</p>
+                    <pre><code>strcpy(dest, <span class="string">"Hello"</span>); <span class="comment">// dest becomes "Hello"</span></code></pre>
+                </details>
+
+                <details>
+                    <summary>3. strcat(s1, s2) - Concatenate (Join)</summary>
+                    <p>Appends string s2 at the end of string s1.</p>
+                    <pre><code>strcat(s1, <span class="string">" World"</span>); <span class="comment">// If s1 was "Hello", it becomes "Hello World"</span></code></pre>
+                </details>
+
+                <details>
+                    <summary>4. strcmp(s1, s2) - Compare</summary>
+                    <p>Returns 0 if both strings are exactly identical. Returns negative or positive if they differ.</p>
+                    <pre><code><span class="keyword">if</span>(strcmp(pass, <span class="string">"123"</span>) == 0) { printf(<span class="string">"Match!"</span>); }</code></pre>
+                </details>
+            </div>
+        </section>
+
+        <!-- Unit 6 -->
+        <section id="functions" class="fade-in">
+            <h1>6. Functions & Recursion</h1>
+            
+            <div class="card">
+                <h2>Elements of User Defined Function</h2>
+                <ol>
+                    <li><strong>Function Declaration (Prototype):</strong> Tells compiler the return type and parameters. E.g., <code>int sum(int, int);</code></li>
+                    <li><strong>Function Call:</strong> Invoking the function to do its job. E.g., <code>ans = sum(10, 20);</code></li>
+                    <li><strong>Function Definition:</strong> The actual coding logic inside the block.</li>
+                </ol>
+
+                <h2>Recursion</h2>
+                <p>When a function calls ITSELF inside its own body to solve smaller instances of the same problem. Must have a base case to prevent infinite loops.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>Recursion નો પ્રશ્ન પૂછાય એટલે આ ફેક્ટોરિયલ (Factorial) નો પ્રોગ્રામ છાપી જ મારવો. આ સૌથી બેસ્ટ ઉદાહરણ છે.</p>
+                </div>
+
+<pre><code><span class="type">int</span> <span class="function">fact</span>(<span class="type">int</span> n) {
+    <span class="comment">// Base Condition</span>
+    <span class="keyword">if</span>(n == 1) <span class="keyword">return</span> 1; 
+    
+    <span class="comment">// Recursive Call</span>
+    <span class="keyword">else return</span> n * <span class="function">fact</span>(n - 1); 
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Unit 7 -->
+        <section id="pointers" class="fade-in">
+            <h1>7. Pointers</h1>
+            
+            <div class="card">
+                <h2>What is a Pointer?</h2>
+                <p>A pointer is a special variable that stores the <strong>Memory Address</strong> of another variable, instead of storing a normal value.</p>
+                <ul>
+                    <li><code>&amp;</code> : Address of operator. Gets the memory location.</li>
+                    <li><code>*</code> : Dereference operator. Gets the value stored AT that memory location.</li>
+                </ul>
+
+<pre><code><span class="type">int</span> a = 10;
+<span class="type">int</span> *p;    <span class="comment">// Declaration of pointer</span>
+p = &amp;a;    <span class="comment">// p now holds the address of a (e.g., 5000)</span>
+printf(<span class="string">"%d"</span>, *p); <span class="comment">// Prints 10 (value at address 5000)</span></code></pre>
+
+                <h2>Call by Value vs Call by Reference</h2>
+                <table>
+                    <tr><th>Call by Value</th><th>Call by Reference (Using Pointers)</th></tr>
+                    <tr><td>Passes a COPY of the actual arguments.</td><td>Passes the ADDRESS (&) of actual arguments.</td></tr>
+                    <tr><td>Changes made inside the function DO NOT affect original variables.</td><td>Changes made inside the function DO affect original variables.</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Unit 8 -->
+        <section id="struct" class="fade-in">
+            <h1>8. Structure vs Union</h1>
+            
+            <div class="card">
+                <h2>Comparison (MIMP)</h2>
+                <p>Both are user-defined data types used to group different data types together. But memory management is different.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>આ તફાવત પૂછાય ત્યારે ઉદાહરણમાં સાઈઝની ગણતરી (Total Bytes) બતાવવી. માર્ક્સ કપાશે જ નહિ.</p>
+                </div>
+
+                <table>
+                    <tr>
+                        <th>Structure (struct)</th>
+                        <th>Union (union)</th>
+                    </tr>
+                    <tr>
+                        <td>Each member gets its own separate memory space.</td>
+                        <td>All members SHARE the same memory space.</td>
+                    </tr>
+                    <tr>
+                        <td>Size = Sum of sizes of all members.</td>
+                        <td>Size = Size of the largest member only.</td>
+                    </tr>
+                    <tr>
+                        <td>All members can be accessed at the same time.</td>
+                        <td>Only one member can be accessed at a time.</td>
+                    </tr>
+                </table>
+
+<pre><code><span class="comment">// Structure Memory: 2(int) + 4(float) + 1(char) = 7 Bytes Total Space</span>
+<span class="keyword">struct</span> Employee {
+    <span class="type">int</span> id;
+    <span class="type">float</span> salary;
+    <span class="type">char</span> grade;
+};
+
+<span class="comment">// Union Memory: 4 Bytes Total Space (Float is the largest)</span>
+<span class="keyword">union</span> Employee {
+    <span class="type">int</span> id;
+    <span class="type">float</span> salary;
+    <span class="type">char</span> grade;
+};</code></pre>
+            </div>
+        </section>
+
+        <!-- Unit 9 & 10 -->
+        <section id="file-dma" class="fade-in">
+            <h1>9. File Handling & Dynamic Memory Allocation (DMA)</h1>
+            
+            <div class="card">
+                <h2>File Handling Modes</h2>
+                <ul>
+                    <li><code>r</code> : Open for reading (Error if file doesn't exist).</li>
+                    <li><code>w</code> : Open for writing (Creates new file or overwrites existing).</li>
+                    <li><code>a</code> : Open for appending (Adds data to the end of existing file).</li>
+                </ul>
+
+                <h2>Dynamic Memory Allocation (DMA)</h2>
+                <p>Allocating memory at runtime (while program is running) from the Heap. <code>&lt;stdlib.h&gt;</code> is required.</p>
+                <ul>
+                    <li><code>malloc()</code> : Allocates single block of uninitialized memory.</li>
+                    <li><code>calloc()</code> : Allocates multiple blocks and initializes them to zero (0).</li>
+                    <li><code>realloc()</code> : Resizes previously allocated memory.</li>
+                    <li><code>free()</code> : Releases memory back to the system to prevent memory leaks.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scroll Animation Script -->
     <script>
-        // --- Configuration & Constants ---
-        const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-        const START_MIDI_NOTE = 48; // C3
-        const NUM_KEYS = 37; // 3 Octaves (C3 to C6)
-        
-        // --- Perfect DAW Style PC Keyboard Mapping ---
-        const KEYBOARD_MAP = {
-            'z': 0, 's': 1, 'x': 2, 'd': 3, 'c': 4, 'v': 5, 'g': 6, 'b': 7, 'h': 8, 'n': 9, 'j': 10, 'm': 11,
-            'q': 12, '2': 13, 'w': 14, '3': 15, 'e': 16, 'r': 17, '5': 18, 't': 19, '6': 20, 'y': 21, '7': 22, 'u': 23,
-            'i': 24, '9': 25, 'o': 26, '0': 27, 'p': 28, '[': 29, '=': 30, ']': 31,
-            ',': 32, 'l': 33, '.': 34, ';': 35, '/': 36
-        };
-
-        // --- State ---
-        let audioCtx = null;
-        let masterGain = null;
-        let globalWetGain = null;
-        let activeInstruments = new Set(['harmonium']); 
-        let octaveShift = 0;
-        let isEngineStarted = false;
-        let isSustainEnabled = false;
-        
-        let activeNotes = {}; 
-        let sustainedNotes = {}; 
-        let activeDrones = {};
-        let isMouseDown = false;
-
-        // --- DOM Elements ---
-        const powerBtn = document.getElementById('powerBtn');
-        const mainControls = document.getElementById('mainControls');
-        const keyboardSection = document.getElementById('keyboardSection');
-        const keyboardEl = document.getElementById('keyboard');
-        const visualizerEl = document.getElementById('visualizer');
-        const droneContainer = document.getElementById('droneContainer');
-        const instBtns = document.querySelectorAll('.inst-btn');
-        const masterVolume = document.getElementById('masterVolume');
-        const volDisplay = document.getElementById('volDisplay');
-        const reverbVolume = document.getElementById('reverbVolume');
-        const reverbDisplay = document.getElementById('reverbDisplay');
-        const octaveDown = document.getElementById('octaveDown');
-        const octaveUp = document.getElementById('octaveUp');
-        const octaveDisplay = document.getElementById('octaveDisplay');
-        const sustainBtn = document.getElementById('sustainBtn');
-        const themeBtns = document.querySelectorAll('.theme-btn');
-        const systemStatus = document.getElementById('systemStatus');
-        const statusLed = document.getElementById('statusLed');
-
-        // --- Audio Engine Toggle & Initialization ---
-        async function toggleAudio() {
-            if (!audioCtx) {
-                // Initialize Audio Context for the first time
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                audioCtx = new AudioContext();
-                
-                masterGain = audioCtx.createGain();
-                masterGain.gain.value = masterVolume.value;
-                
-                // Compressor
-                const compressor = audioCtx.createDynamicsCompressor();
-                compressor.threshold.setValueAtTime(-15, audioCtx.currentTime);
-                compressor.knee.setValueAtTime(30, audioCtx.currentTime);
-                compressor.ratio.setValueAtTime(10, audioCtx.currentTime);
-                compressor.attack.setValueAtTime(0.005, audioCtx.currentTime);
-                compressor.release.setValueAtTime(0.2, audioCtx.currentTime);
-
-                masterGain.connect(compressor);
-                
-                // Reverb Effect Setup
-                const convolver = audioCtx.createConvolver();
-                const length = audioCtx.sampleRate * 2.5; 
-                const impulse = audioCtx.createBuffer(2, length, audioCtx.sampleRate);
-                for (let i = 0; i < 2; i++) {
-                    const channelData = impulse.getChannelData(i);
-                    for (let j = 0; j < length; j++) {
-                        channelData[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / length, 4);
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll(".fade-in");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
                     }
-                }
-                convolver.buffer = impulse;
-                
-                const dryGain = audioCtx.createGain();
-                globalWetGain = audioCtx.createGain();
-                
-                dryGain.gain.value = 0.8;
-                globalWetGain.gain.value = reverbVolume.value;
-
-                compressor.connect(dryGain);
-                compressor.connect(convolver);
-                
-                dryGain.connect(audioCtx.destination);
-                convolver.connect(globalWetGain);
-                globalWetGain.connect(audioCtx.destination);
-                
-                isEngineStarted = true;
-            } else {
-                // Toggle Suspend / Resume
-                if (audioCtx.state === 'running') {
-                    await audioCtx.suspend();
-                    isEngineStarted = false;
-                    
-                    // Stop all drones and uncheck visual boxes
-                    Object.keys(activeDrones).forEach(note => {
-                        releaseInstrumentVoice(activeDrones[note]);
-                        delete activeDrones[note];
-                    });
-                    document.querySelectorAll('.drone-switch').forEach(cb => cb.checked = false);
-                    
-                    releaseAllNotes();
-                } else if (audioCtx.state === 'suspended') {
-                    await audioCtx.resume();
-                    isEngineStarted = true;
-                }
-            }
-
-            // --- Update UI depending on state ---
-            if (isEngineStarted) {
-                powerBtn.classList.replace('bg-emerald-500/20', 'bg-red-600/50');
-                powerBtn.classList.replace('hover:bg-emerald-500/40', 'hover:bg-red-500');
-                powerBtn.classList.replace('border-emerald-500/50', 'border-red-500/50');
-                powerBtn.classList.replace('text-emerald-400', 'text-white');
-                powerBtn.style.boxShadow = '0 0 15px rgba(239, 68, 68, 0.5)';
-                powerBtn.innerHTML = '<i class="fas fa-power-off"></i> <span>Stop Audio</span>';
-                
-                if(systemStatus && statusLed) {
-                    systemStatus.innerText = 'Audio Engine Active';
-                    systemStatus.style.color = '#34d399';
-                    statusLed.classList.replace('bg-slate-500', 'bg-emerald-400');
-                    statusLed.classList.add('animate-pulse');
-                    statusLed.style.boxShadow = '0 0 12px #34d399';
-                }
-                
-                mainControls.classList.remove('opacity-50', 'pointer-events-none');
-                keyboardSection.classList.remove('opacity-50', 'pointer-events-none');
-            } else {
-                powerBtn.classList.replace('bg-red-600/50', 'bg-emerald-500/20');
-                powerBtn.classList.replace('hover:bg-red-500', 'hover:bg-emerald-500/40');
-                powerBtn.classList.replace('border-red-500/50', 'border-emerald-500/50');
-                powerBtn.classList.replace('text-white', 'text-emerald-400');
-                powerBtn.style.boxShadow = '0 0 15px rgba(16, 185, 129, 0.2)';
-                powerBtn.innerHTML = '<i class="fas fa-power-off"></i> <span>Start Audio</span>';
-                
-                if(systemStatus && statusLed) {
-                    systemStatus.innerText = 'System Paused';
-                    systemStatus.style.color = '#94a3b8'; // text-slate-400
-                    statusLed.classList.replace('bg-emerald-400', 'bg-slate-500');
-                    statusLed.classList.remove('animate-pulse');
-                    statusLed.style.boxShadow = '0 0 10px rgba(255,255,255,0.2)';
-                }
-                
-                mainControls.classList.add('opacity-50', 'pointer-events-none');
-                keyboardSection.classList.add('opacity-50', 'pointer-events-none');
-            }
-        }
-
-        // --- Synthesis Functions ---
-        function midiToFreq(midiNote) {
-            return 440 * Math.pow(2, (midiNote - 69) / 12);
-        }
-
-        function createInstrumentVoice(freq, instrument, isDrone = false) {
-            if (!audioCtx) return null;
-
-            const voiceGain = audioCtx.createGain();
-            const layerComp = 1 / Math.max(1, activeInstruments.size * 0.7);
-            const baseVol = isDrone ? 0.2 : 0.5;
-            voiceGain.connect(masterGain);
-            
-            const oscs = [];
-            const now = audioCtx.currentTime;
-
-            switch(instrument) {
-                case 'harmonium':
-                    const h1 = audioCtx.createOscillator(); h1.type = 'sawtooth'; h1.frequency.value = freq;
-                    const h2 = audioCtx.createOscillator(); h2.type = 'square'; h2.frequency.value = freq; h2.detune.value = 10;
-                    const hFilter = audioCtx.createBiquadFilter(); hFilter.type = 'lowpass'; hFilter.frequency.value = 2500;
-                    h1.connect(hFilter); h2.connect(hFilter); hFilter.connect(voiceGain);
-                    oscs.push(h1, h2);
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(baseVol * layerComp, now + 0.05);
-                    break;
-                    
-                case 'piano':
-                    const p1 = audioCtx.createOscillator(); p1.type = 'triangle'; p1.frequency.value = freq;
-                    const p2 = audioCtx.createOscillator(); p2.type = 'sine'; p2.frequency.value = freq; p2.detune.value = 4;
-                    p1.connect(voiceGain); p2.connect(voiceGain);
-                    oscs.push(p1, p2);
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.8 * layerComp, now + 0.01);
-                    if(!isDrone) voiceGain.gain.exponentialRampToValueAtTime(0.001, now + (isSustainEnabled ? 5 : 3));
-                    break;
-                    
-                case 'organ':
-                    [1, 2, 3].forEach((mult, i) => {
-                        const osc = audioCtx.createOscillator(); osc.type = 'sine'; osc.frequency.value = freq * mult;
-                        const hg = audioCtx.createGain(); hg.gain.value = [0.5, 0.3, 0.2][i];
-                        osc.connect(hg); hg.connect(voiceGain); oscs.push(osc);
-                    });
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.6 * layerComp, now + 0.03);
-                    break;
-                    
-                case 'synth':
-                    const s1 = audioCtx.createOscillator(); s1.type = 'sawtooth'; s1.frequency.value = freq; s1.detune.value = -6;
-                    const s2 = audioCtx.createOscillator(); s2.type = 'sawtooth'; s2.frequency.value = freq / 2; s2.detune.value = 6;
-                    const sFilter = audioCtx.createBiquadFilter(); sFilter.type = 'lowpass'; sFilter.Q.value = 8;
-                    sFilter.frequency.setValueAtTime(100, now);
-                    sFilter.frequency.exponentialRampToValueAtTime(4000, now + 0.1);
-                    sFilter.frequency.exponentialRampToValueAtTime(800, now + 0.4);
-                    s1.connect(sFilter); s2.connect(sFilter); sFilter.connect(voiceGain);
-                    oscs.push(s1, s2);
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.5 * layerComp, now + 0.02);
-                    break;
-                    
-                case 'strings':
-                    const st1 = audioCtx.createOscillator(); st1.type = 'sawtooth'; st1.frequency.value = freq;
-                    const st2 = audioCtx.createOscillator(); st2.type = 'sawtooth'; st2.frequency.value = freq; st2.detune.value = 15;
-                    const stFilter = audioCtx.createBiquadFilter(); stFilter.type = 'lowpass'; stFilter.frequency.value = 3000;
-                    st1.connect(stFilter); st2.connect(stFilter); stFilter.connect(voiceGain);
-                    oscs.push(st1, st2);
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.5 * layerComp, now + 0.3);
-                    break;
-                    
-                case 'flute':
-                    const f1 = audioCtx.createOscillator(); f1.type = 'sine'; f1.frequency.value = freq;
-                    const lfo = audioCtx.createOscillator(); lfo.type = 'sine'; lfo.frequency.value = 5;
-                    const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 10;
-                    lfo.connect(lfoGain); lfoGain.connect(f1.detune);
-                    lfo.start(now);
-                    f1.connect(voiceGain);
-                    oscs.push(f1, lfo); 
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.7 * layerComp, now + 0.1);
-                    break;
-
-                case 'brass':
-                    const b1 = audioCtx.createOscillator(); b1.type = 'sawtooth'; b1.frequency.value = freq;
-                    const b2 = audioCtx.createOscillator(); b2.type = 'square'; b2.frequency.value = freq; b2.detune.value = 5;
-                    const bFilter = audioCtx.createBiquadFilter(); bFilter.type = 'lowpass'; bFilter.Q.value = 2;
-                    bFilter.frequency.setValueAtTime(200, now);
-                    bFilter.frequency.linearRampToValueAtTime(3000, now + 0.15); 
-                    b1.connect(bFilter); b2.connect(bFilter); bFilter.connect(voiceGain);
-                    oscs.push(b1, b2);
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.6 * layerComp, now + 0.1);
-                    break;
-
-                case 'pluck':
-                    const pl = audioCtx.createOscillator(); pl.type = 'triangle'; pl.frequency.value = freq;
-                    const plFilter = audioCtx.createBiquadFilter(); plFilter.type = 'lowpass'; 
-                    plFilter.frequency.setValueAtTime(4000, now);
-                    plFilter.frequency.exponentialRampToValueAtTime(200, now + 0.5);
-                    pl.connect(plFilter); plFilter.connect(voiceGain);
-                    oscs.push(pl);
-                    voiceGain.gain.setValueAtTime(0, now);
-                    voiceGain.gain.linearRampToValueAtTime(0.9 * layerComp, now + 0.01);
-                    if(!isDrone) voiceGain.gain.exponentialRampToValueAtTime(0.001, now + (isSustainEnabled ? 2.5 : 1.0));
-                    break;
-            }
-
-            oscs.forEach(osc => {
-                if (osc.frequency) osc.start(now); 
-            });
-
-            return { oscs, voiceGain, instrument };
-        }
-
-        function releaseInstrumentVoice(voiceData) {
-            if (!voiceData || !audioCtx) return;
-            const now = audioCtx.currentTime;
-            
-            let releaseTime = 0.2;
-            if (['piano', 'pluck'].includes(voiceData.instrument)) releaseTime = 0.5;
-            if (voiceData.instrument === 'strings') releaseTime = 0.6;
-            
-            if (isSustainEnabled && !['piano', 'pluck'].includes(voiceData.instrument)) {
-                releaseTime = 1.5; 
-            }
-
-            const currentGain = voiceData.voiceGain.gain.value;
-            voiceData.voiceGain.gain.cancelScheduledValues(now);
-            voiceData.voiceGain.gain.setValueAtTime(currentGain, now);
-            voiceData.voiceGain.gain.exponentialRampToValueAtTime(0.001, now + releaseTime);
-            
-            voiceData.oscs.forEach(osc => {
-                try { osc.stop(now + releaseTime + 0.1); } catch(e){}
-            });
-        }
-
-        // --- Playback Controls ---
-        function playNote(midiNote) {
-            if (!isEngineStarted) return;
-            
-            const shiftedNote = midiNote + (octaveShift * 12);
-            if (activeNotes[shiftedNote]) return; 
-
-            // FIX: Purano sustain note properly release karo jethi hanging sound na aave
-            if (sustainedNotes[shiftedNote]) {
-                sustainedNotes[shiftedNote].forEach(voiceData => releaseInstrumentVoice(voiceData));
-                delete sustainedNotes[shiftedNote];
-            }
-
-            const freq = midiToFreq(shiftedNote);
-            const voices = [];
-            
-            activeInstruments.forEach(inst => {
-                const voiceData = createInstrumentVoice(freq, inst);
-                if (voiceData) voices.push(voiceData);
-            });
-
-            activeNotes[shiftedNote] = voices;
-
-            const keyEl = document.querySelector(`.key[data-note="${midiNote}"]`);
-            if (keyEl) keyEl.classList.add('active');
-            
-            const led = document.getElementById(`led-${midiNote}`);
-            if (led) led.classList.add('active');
-        }
-
-        function stopNote(midiNote) {
-            const shiftedNote = midiNote + (octaveShift * 12);
-            const voices = activeNotes[shiftedNote];
-            
-            if (voices) {
-                if (isSustainEnabled) {
-                    sustainedNotes[shiftedNote] = voices;
-                } else {
-                    voices.forEach(voiceData => releaseInstrumentVoice(voiceData));
-                }
-                delete activeNotes[shiftedNote];
-            }
-
-            const keyEl = document.querySelector(`.key[data-note="${midiNote}"]`);
-            if (keyEl) keyEl.classList.remove('active');
-            
-            if (!isSustainEnabled) {
-                const led = document.getElementById(`led-${midiNote}`);
-                if (led) led.classList.remove('active');
-            }
-        }
-
-        function releaseSustainedNotes() {
-            Object.keys(sustainedNotes).forEach(note => {
-                const voices = sustainedNotes[note];
-                voices.forEach(voiceData => releaseInstrumentVoice(voiceData));
-                
-                const originalNote = parseInt(note) - (octaveShift * 12);
-                const led = document.getElementById(`led-${originalNote}`);
-                if (led) led.classList.remove('active');
-            });
-            sustainedNotes = {};
-        }
-
-        function toggleSustain() {
-            isSustainEnabled = !isSustainEnabled;
-            if (isSustainEnabled) {
-                sustainBtn.classList.add('active');
-            } else {
-                sustainBtn.classList.remove('active');
-                releaseSustainedNotes();
-            }
-        }
-
-        function toggleDrone(noteIndex, isActive) {
-            if (!isEngineStarted) return;
-            const midiNote = START_MIDI_NOTE + noteIndex; 
-            
-            if (isActive) {
-                if (activeDrones[midiNote]) return;
-                const freq = midiToFreq(midiNote);
-                const voiceData = createInstrumentVoice(freq, 'harmonium', true);
-                activeDrones[midiNote] = voiceData;
-            } else {
-                if (activeDrones[midiNote]) {
-                    releaseInstrumentVoice(activeDrones[midiNote]);
-                    delete activeDrones[midiNote];
-                }
-            }
-        }
-
-        function releaseAllNotes() {
-            Object.keys(activeNotes).forEach(note => {
-                const originalNote = parseInt(note) - (octaveShift * 12);
-                stopNote(originalNote); 
-            });
-            releaseSustainedNotes();
-        }
-
-        // --- DOM Generation ---
-        function renderKeyboard() {
-            keyboardEl.innerHTML = '';
-            visualizerEl.innerHTML = '';
-            let whiteKeyCount = 0;
-
-            for (let i = 0; i < NUM_KEYS; i++) {
-                const midiNote = START_MIDI_NOTE + i;
-                const noteName = NOTE_NAMES[i % 12];
-                const isBlack = noteName.includes('#');
-
-                if (!isBlack) {
-                    const led = document.createElement('div');
-                    led.className = 'led';
-                    led.id = `led-${midiNote}`;
-                    visualizerEl.appendChild(led);
-                }
-
-                const keyDiv = document.createElement('div');
-                keyDiv.className = `key ${isBlack ? 'key-black' : 'key-white'}`;
-                keyDiv.dataset.note = midiNote;
-
-                const mappingKey = Object.keys(KEYBOARD_MAP).find(k => KEYBOARD_MAP[k] === i);
-                
-                if (!isBlack) {
-                    whiteKeyCount++;
-                    if (mappingKey) {
-                        keyDiv.innerHTML = `<span class="uppercase opacity-50 mt-auto mb-2 tracking-widest pointer-events-none text-[10px] font-bold text-slate-500">${mappingKey}</span>`;
-                    }
-                    keyboardEl.appendChild(keyDiv);
-                } else {
-                    const lastWhiteKey = keyboardEl.lastChild;
-                    if(lastWhiteKey) {
-                        keyDiv.style.left = `56px`; 
-                        if (mappingKey) {
-                            keyDiv.innerHTML = `<span class="uppercase opacity-60 pointer-events-none text-[9px] font-bold">${mappingKey}</span>`;
-                        }
-                        lastWhiteKey.appendChild(keyDiv);
-                    }
-                }
-
-                keyDiv.addEventListener('mousedown', (e) => { e.stopPropagation(); isMouseDown = true; playNote(midiNote); });
-                keyDiv.addEventListener('mouseenter', () => { if (isMouseDown) playNote(midiNote); });
-                keyDiv.addEventListener('mouseleave', () => stopNote(midiNote));
-                keyDiv.addEventListener('mouseup', () => stopNote(midiNote));
-
-                keyDiv.addEventListener('touchstart', (e) => { e.preventDefault(); playNote(midiNote); });
-                keyDiv.addEventListener('touchend', (e) => { e.preventDefault(); stopNote(midiNote); });
-            }
-            keyboardEl.style.width = `${whiteKeyCount * 58}px`; 
-        }
-
-        function renderDrones() {
-            droneContainer.innerHTML = '';
-            for (let i = 0; i < 12; i++) {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'flex flex-col items-center gap-1.5 p-1';
-                
-                const noteName = NOTE_NAMES[i];
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'drone-switch';
-                checkbox.dataset.drone = i;
-                checkbox.addEventListener('change', (e) => toggleDrone(i, e.target.checked));
-
-                const label = document.createElement('span');
-                label.className = 'text-[11px] font-bold';
-                label.style.color = "var(--text-accent)";
-                label.innerText = noteName;
-
-                wrapper.appendChild(checkbox);
-                wrapper.appendChild(label);
-                droneContainer.appendChild(wrapper);
-            }
-        }
-
-        // --- Event Listeners ---
-        powerBtn.addEventListener('click', toggleAudio);
-        sustainBtn.addEventListener('click', toggleSustain);
-
-        document.addEventListener('mouseup', () => { isMouseDown = false; });
-        document.addEventListener('mouseleave', () => { isMouseDown = false; releaseAllNotes(); });
-
-        // Keyboard Shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.repeat) return;
-            const key = e.key.toLowerCase();
-            
-            if (e.code === 'Space') {
-                e.preventDefault();
-                toggleSustain();
-                return;
-            }
-
-            if (KEYBOARD_MAP[key] !== undefined) {
-                playNote(START_MIDI_NOTE + KEYBOARD_MAP[key]);
-            }
-            
-            if (e.code === 'ArrowLeft') document.getElementById('octaveDown').click();
-            if (e.code === 'ArrowRight') document.getElementById('octaveUp').click();
-        });
-
-        document.addEventListener('keyup', (e) => {
-            const key = e.key.toLowerCase();
-            if (KEYBOARD_MAP[key] !== undefined) {
-                stopNote(START_MIDI_NOTE + KEYBOARD_MAP[key]);
-            }
-        });
-
-        // Controls
-        masterVolume.addEventListener('input', (e) => {
-            const val = parseFloat(e.target.value);
-            volDisplay.innerText = `${Math.round(val * 100)}%`;
-            if (masterGain) masterGain.gain.setValueAtTime(val, audioCtx.currentTime);
-        });
-
-        reverbVolume.addEventListener('input', (e) => {
-            const val = parseFloat(e.target.value);
-            reverbDisplay.innerText = `${Math.round(val * 100)}%`;
-            if (globalWetGain) globalWetGain.gain.setValueAtTime(val, audioCtx.currentTime);
-        });
-
-        instBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const target = e.currentTarget;
-                const inst = target.dataset.inst;
-                
-                if (activeInstruments.has(inst)) {
-                    if (activeInstruments.size > 1) {
-                        activeInstruments.delete(inst);
-                        target.classList.remove('active');
-                    }
-                } else {
-                    activeInstruments.add(inst);
-                    target.classList.add('active');
-                }
-                
-                const currentlyPlaying = Object.keys(activeNotes);
-                releaseAllNotes();
-                currentlyPlaying.forEach(note => {
-                    const originalNote = parseInt(note) - (octaveShift * 12);
-                    playNote(originalNote);
                 });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
         });
-
-        octaveDown.addEventListener('click', () => {
-            if (octaveShift > -2) {
-                releaseAllNotes();
-                octaveShift--;
-                octaveDisplay.innerText = octaveShift > 0 ? `+${octaveShift}` : octaveShift;
-            }
-        });
-
-        octaveUp.addEventListener('click', () => {
-            if (octaveShift < 2) {
-                releaseAllNotes();
-                octaveShift++;
-                octaveDisplay.innerText = octaveShift > 0 ? `+${octaveShift}` : octaveShift;
-            }
-        });
-
-        // Theme Switcher Logic
-        themeBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                themeBtns.forEach(b => b.classList.remove('active'));
-                const target = e.currentTarget;
-                target.classList.add('active');
-                
-                document.body.className = `flex flex-col items-center justify-center p-2 sm:p-4 lg:p-8 ${target.dataset.theme}`;
-            });
-        });
-
-        // --- Initialization ---
-        renderKeyboard();
-        renderDrones();
-
     </script>
 </body>
 </html>
