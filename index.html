@@ -3,323 +3,512 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PPS Complete Masterclass 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>PPS Ultimate Exam Guide | Animated Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #0f172a;
-            --bg-sidebar: #1e293b;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-primary: #8b5cf6;
-            --accent-secondary: #10b981;
-            --border-color: #334155;
+            --bg: #09090b;
+            --surface: rgba(24, 24, 27, 0.7);
+            --border: rgba(63, 63, 70, 0.5);
+            --text-primary: #f4f4f5;
+            --text-secondary: #a1a1aa;
+            --accent-1: #3b82f6; /* Blue */
+            --accent-2: #10b981; /* Green */
+            --accent-3: #f59e0b; /* Yellow (Tips) */
             --code-bg: #000000;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-base); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
         
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-primary); 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-1); }
+
         /* Sidebar */
-        aside { width: 280px; background-color: var(--bg-sidebar); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; }
-        .logo { padding: 25px 20px; font-size: 1.5rem; color: var(--accent-primary); font-weight: 800; border-bottom: 1px solid var(--border-color); letter-spacing: 1px; }
+        aside { 
+            width: 300px; 
+            background: var(--surface); 
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--border); 
+            display: flex; 
+            flex-direction: column; 
+            z-index: 10;
+        }
+        .logo { 
+            padding: 30px 20px; 
+            font-size: 1.8rem; 
+            background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800; 
+            border-bottom: 1px solid var(--border); 
+        }
         nav { flex: 1; overflow-y: auto; padding: 20px 10px; }
         nav ul { list-style: none; }
         nav ul li { margin-bottom: 8px; }
-        nav ul li a { text-decoration: none; color: var(--text-muted); font-weight: 600; display: block; padding: 12px 15px; border-radius: 8px; transition: all 0.3s ease; border: 1px solid transparent; font-size: 0.95rem; }
-        nav ul li a:hover { background-color: rgba(139, 92, 246, 0.1); color: var(--accent-primary); border-color: rgba(139, 92, 246, 0.3); transform: translateX(5px); }
+        nav ul li a { 
+            text-decoration: none; color: var(--text-secondary); 
+            font-weight: 600; display: block; padding: 12px 20px; 
+            border-radius: 8px; transition: 0.3s; 
+        }
+        nav ul li a:hover { 
+            background: rgba(59, 130, 246, 0.1); 
+            color: var(--text-primary); 
+            border-left: 4px solid var(--accent-1); 
+        }
 
         /* Main Content */
-        main { flex: 1; padding: 40px 60px; overflow-y: auto; scroll-behavior: smooth; }
-        section { margin-bottom: 80px; scroll-margin-top: 40px; }
+        main { 
+            flex: 1; padding: 40px 80px; overflow-y: auto; scroll-behavior: smooth; 
+            position: relative;
+        }
+
+        /* Animation Classes */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        section { margin-bottom: 100px; scroll-margin-top: 40px; }
         
-        h1 { font-size: 2.5rem; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; color: var(--text-main); }
-        h2 { font-size: 1.8rem; color: var(--accent-secondary); margin: 35px 0 15px 0; }
-        h3 { font-size: 1.3rem; color: var(--accent-primary); margin: 20px 0 10px 0; }
+        h1 { font-size: 3rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 15px; color: var(--text-primary); letter-spacing: -1px;}
+        h2 { font-size: 1.8rem; color: var(--accent-1); margin: 40px 0 20px 0; display: flex; align-items: center; gap: 10px;}
+        h2::before { content: '⚡'; font-size: 1.5rem; }
         
-        .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2); }
+        .card { 
+            background: var(--surface); 
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border); 
+            border-radius: 16px; padding: 30px; margin-bottom: 30px; 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.3); }
         
-        p, li { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 12px; }
-        ul, ol { padding-left: 25px; margin-bottom: 15px; }
-        
-        /* Tables */
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: var(--bg-base); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-        th { background-color: var(--accent-primary); color: #fff; font-weight: 600; font-size: 1.05rem; }
-        td { color: var(--text-main); }
+        p, li { font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 15px; }
+        ul, ol { padding-left: 25px; margin-bottom: 20px; }
+
+        /* Exam Tip Box */
+        .exam-tip { 
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.1), transparent);
+            border-left: 4px solid var(--accent-3); 
+            padding: 20px; margin: 25px 0; border-radius: 0 12px 12px 0; 
+            animation: pulse-border 2s infinite alternate;
+        }
+        @keyframes pulse-border {
+            0% { border-left-color: var(--accent-3); }
+            100% { border-left-color: #fbbf24; box-shadow: -5px 0 15px rgba(245, 158, 11, 0.2); }
+        }
+        .exam-tip strong { color: var(--accent-3); display: block; margin-bottom: 8px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px;}
+        .exam-tip p { color: var(--text-primary); margin: 0; }
 
         /* Code Blocks */
-        pre { background-color: var(--code-bg); padding: 20px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border-color); margin: 15px 0; }
-        code { font-family: 'Fira Code', monospace; color: #e2e8f0; font-size: 0.95rem; line-height: 1.5; }
-        .keyword { color: #c678dd; }
-        .type { color: #e5c07b; }
-        .string { color: #98c379; }
-        .comment { color: #5c6370; font-style: italic; }
-        .function { color: #61afef; }
+        pre { 
+            background-color: var(--code-bg); padding: 25px; border-radius: 12px; 
+            overflow-x: auto; border: 1px solid var(--border); margin: 20px 0; 
+            position: relative;
+        }
+        pre::before {
+            content: '💻 Code'; position: absolute; top: 0; right: 0; 
+            background: var(--border); color: var(--text-secondary); 
+            padding: 4px 10px; font-size: 0.8rem; border-bottom-left-radius: 8px;
+        }
+        code { font-family: 'Fira Code', monospace; color: #a78bfa; font-size: 1.05rem; line-height: 1.6;}
+        .keyword { color: #f472b6; } /* Pink */
+        .type { color: #fbbf24; } /* Yellow */
+        .string { color: #34d399; } /* Green */
+        .comment { color: #71717a; font-style: italic; }
 
-        /* Highlight box */
-        .highlight-box { background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-secondary); padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-        .highlight-box strong { color: var(--accent-secondary); display: block; margin-bottom: 5px; font-size: 1.1rem; }
+        /* Tables */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 20px 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        th, td { padding: 18px; text-align: left; border-bottom: 1px solid var(--border); background: var(--surface); }
+        th { background-color: rgba(59, 130, 246, 0.2); color: var(--accent-1); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; }
+
+        /* Details / Summary */
+        details { background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        summary { font-weight: 600; color: var(--accent-2); cursor: pointer; outline: none; font-size: 1.2rem; }
+        details p { margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
+    <!-- Sidebar Navigation -->
     <aside>
-        <div class="logo">PPS Master Portal</div>
+        <div class="logo">PPS Master 2026</div>
         <nav>
             <ul>
-                <li><a href="#fundamentals">1. Computer Fundamentals</a></li>
-                <li><a href="#c-basics">2. C Fundamentals</a></li>
-                <li><a href="#decision">3. Decision Control</a></li>
-                <li><a href="#loops">4. Loop Control</a></li>
+                <li><a href="#intro">1. Computer & Algo</a></li>
+                <li><a href="#c-basics">2. C Structure & Data Types</a></li>
+                <li><a href="#control">3. Control Structures (If/Switch)</a></li>
+                <li><a href="#loops">4. Loops (Entry/Exit)</a></li>
                 <li><a href="#arrays">5. Arrays & Strings</a></li>
                 <li><a href="#functions">6. Functions & Recursion</a></li>
-                <li><a href="#pointers">7. Pointers</a></li>
-                <li><a href="#structures">8. Structures & Unions</a></li>
-                <li><a href="#files">9. File Handling</a></li>
-                <li><a href="#dma">10. Dynamic Memory</a></li>
+                <li><a href="#pointers">7. Pointers (Detailed)</a></li>
+                <li><a href="#struct">8. Structure vs Union</a></li>
+                <li><a href="#file-dma">9. File Handling & DMA</a></li>
             </ul>
         </nav>
     </aside>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
 
-        <!-- 1. Computer Fundamentals -->
-        <section id="fundamentals">
-            <h1>1. Computer Fundamentals</h1>
+        <!-- Unit 1 -->
+        <section id="intro" class="fade-in">
+            <h1>1. Computer Fundamentals & Algorithms</h1>
+            
             <div class="card">
                 <h2>Block Diagram of Computer</h2>
-                <p>A computer is made up of mainly four components[cite: 11]:</p>
-                <ul>
-                    <li><strong>Input Section:</strong> Converts human-understandable input to computer controllable data (e.g., Mouse, Keyboard).</li>
-                    <li><strong>CPU (Central Processing Unit):</strong> Known as the brain of the computer. It consists of:
+                <p>Computer is made up of mainly four components:</p>
+                <ol>
+                    <li><strong>Input Section:</strong> Converts human input to computer data (Mouse, Keyboard).</li>
+                    <li><strong>Central Processing Unit (CPU):</strong> The brain. Consists of:
                         <ul>
-                            <li><strong>ALU (Arithmetic Logic Unit):</strong> Performs all arithmetic calculations and logical decisions.</li>
-                            <li><strong>CU (Control Unit):</strong> Controls all other units and manages operations.</li>
-                            <li><strong>Primary Memory:</strong> RAM (volatile) and ROM (permanent). Accessed directly by CPU.</li>
+                            <li><strong>ALU (Arithmetic Logic Unit):</strong> Performs math calculations and logic.</li>
+                            <li><strong>CU (Control Unit):</strong> Manages operations and reads instructions.</li>
+                            <li><strong>Primary Memory:</strong> RAM (Volatile) & ROM (Permanent). Directly accessed by CPU.</li>
                         </ul>
                     </li>
-                    <li><strong>Output Section:</strong> Sends information to the outside world (e.g., Monitor, Printer).</li>
-                    <li><strong>Storage Devices:</strong> Secondary memory to store data permanently (e.g., Hard disk, Pen drive).</li>
-                </ul>
-
-                <h2>Algorithm & Flowchart</h2>
-                <p><strong>Flowchart:</strong> A pictorial or graphical representation of a process. Easy to understand but difficult to modify for big problems[cite: 11].</p>
-                <p><strong>Algorithm:</strong> A finite sequence of well-defined steps for solving a problem in a systematic manner (written in English)[cite: 11].</p>
-            </div>
-        </section>
-
-        <!-- 2. C Fundamentals -->
-        <section id="c-basics">
-            <h1>2. C Fundamentals</h1>
-            <div class="card">
-                <h2>Basic Structure of C Program</h2>
-                <p>The basic structure includes[cite: 11]:</p>
-                <ol>
-                    <li>Documentation Section</li>
-                    <li>Link Section</li>
-                    <li>Definition Section</li>
-                    <li>Global Declaration Section</li>
-                    <li><code>main()</code> function (Declaration & Executable part)</li>
-                    <li>Subprogram Section (User Defined Functions)</li>
+                    <li><strong>Output Section:</strong> Converts 0s and 1s to human understandable info (Monitor, Printer).</li>
+                    <li><strong>Secondary Memory:</strong> Hard disk, Pen drive for permanent storage.</li>
                 </ol>
-
-                <h2>Primary Data Types</h2>
-                <table>
-                    <tr>
-                        <th>Type</th>
-                        <th>Size</th>
-                        <th>Range</th>
-                    </tr>
-                    <tr>
-                        <td><code>int</code></td>
-                        <td>16 bits (2 Bytes)</td>
-                        <td>-32768 to 32767</td>
-                    </tr>
-                    <tr>
-                        <td><code>char</code></td>
-                        <td>8 bits (1 Byte)</td>
-                        <td>-128 to 127</td>
-                    </tr>
-                    <tr>
-                        <td><code>float</code></td>
-                        <td>32 bits (4 Bytes)</td>
-                        <td>3.4E-38 to 3.4E+38 (6 decimal precision)</td>
-                    </tr>
-                </table>
-
-                <h2>Implicit vs Explicit Type Conversion</h2>
-                <p><strong>Implicit:</strong> C automatically converts lower data types to higher data types without losing significance[cite: 11].</p>
-                <p><strong>Explicit:</strong> Forced conversion by the programmer using cast operator: <code>(type-name) expression</code>[cite: 11].</p>
-            </div>
-        </section>
-
-        <!-- 3. Decision Control -->
-        <section id="decision">
-            <h1>3. Decision Control Structures</h1>
-            <div class="card">
-                <h2>if, if-else, and Nested if</h2>
-                <p>These are decision-making statements. Based on the test expression, specific blocks of code execute[cite: 11].</p>
                 
-                <h2>switch-case statement</h2>
-                <p>A multi-way decision-making statement used when an expression matches one of many constant values[cite: 11].</p>
-<pre><code><span class="keyword">switch</span> (grade) {
-    <span class="keyword">case</span> <span class="string">'A'</span>:
-        <span class="function">printf</span>(<span class="string">"Excellent"</span>);
-        <span class="keyword">break</span>;
-    <span class="keyword">default</span>:
-        <span class="function">printf</span>(<span class="string">"Invalid"</span>);
-}</code></pre>
-                <div class="highlight-box">
-                    <strong>Rules for Switch:</strong>
-                    <p>Float or other data types are not allowed. Case labels must be unique and constant. Break statement is optional but recommended[cite: 11].</p>
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>પ્રશ્ન પૂછાય એટલે પહેલા <b>બ્લોક ડાયાગ્રામ (ચોરસ બોક્સ અને એરો વાળું ચિત્ર)</b> ફરજિયાત દોરવું. ડાયાગ્રામ ના જ 50% માર્ક્સ હોય છે!</p>
                 </div>
             </div>
-        </section>
 
-        <!-- 4. Loop Control -->
-        <section id="loops">
-            <h1>4. Loop Control Structures</h1>
             <div class="card">
-                <h2>Types of Loops</h2>
-                <ul>
-                    <li><strong>while loop (Entry Control):</strong> Checks condition first. If false, body never executes[cite: 11].</li>
-                    <li><strong>for loop (Entry Control):</strong> Concise structure <code>for(initialization; condition; increment)</code>[cite: 11].</li>
-                    <li><strong>do...while loop (Exit Control):</strong> Body executes first, then condition is checked. Guaranteed to run at least once[cite: 11].</li>
-                </ul>
-
-                <h2>break, continue, goto</h2>
-                <p><strong>break:</strong> Provides an early exit from the innermost loop or switch[cite: 11].</p>
-                <p><strong>continue:</strong> Skips the remaining statements in the loop body and proceeds to the next iteration[cite: 11].</p>
-                <p><strong>goto:</strong> Jumps from one point to another labeled point in a function (generally avoided)[cite: 11].</p>
+                <h2>Algorithm vs Flowchart</h2>
+                <details>
+                    <summary>Click to view differences and symbols</summary>
+                    <table>
+                        <tr><th>Algorithm</th><th>Flowchart</th></tr>
+                        <tr><td>Step-by-step written procedure in English.</td><td>Pictorial/Graphical representation of a process.</td></tr>
+                        <tr><td>Easy to write for complex problems.</td><td>Difficult to draw and modify for big problems.</td></tr>
+                    </table>
+                    <p><strong>Flowchart Symbols:</strong> Oval (Start/Stop), Parallelogram (Input/Output), Rectangle (Process/Calculation), Diamond (Decision/If-Else).</p>
+                </details>
             </div>
         </section>
 
-        <!-- 5. Arrays & Strings -->
-        <section id="arrays">
-            <h1>5. Arrays & Strings</h1>
+        <!-- Unit 2 -->
+        <section id="c-basics" class="fade-in">
+            <h1>2. C Fundamentals & Data Types</h1>
+            
             <div class="card">
-                <h2>Arrays</h2>
-                <p>An array is a fixed-size sequenced collection of elements of the same data type. The subscript always begins with 0[cite: 11].</p>
-<pre><code><span class="type">int</span> marks[<span class="string">5</span>] = {50, 60, 70, 80, 90}; <span class="comment">// 1D Array</span>
-<span class="type">int</span> matrix[<span class="string">2</span>][<span class="string">3</span>]; <span class="comment">// 2D Array (Rows, Columns)</span></code></pre>
+                <h2>Basic Structure of C Program</h2>
+                <p>There are 6 mandatory sections in a professional C program.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>આ 6 નામ ક્રમમાં લખીને નીચેનો કોડ એક્ઝામ્પલ તરીકે છાપી દેવો.</p>
+                </div>
 
-                <h2>String Handling Functions</h2>
+<pre><code><span class="comment">// 1. Documentation Section</span>
+<span class="comment">/* Program to find Area */</span>
+
+<span class="comment">// 2. Link Section</span>
+<span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span>
+
+<span class="comment">// 3. Definition Section</span>
+<span class="keyword">#define</span> PI 3.14
+
+<span class="comment">// 4. Global Declaration Section</span>
+<span class="type">int</span> r = 10; 
+
+<span class="comment">// 5. main() Function</span>
+<span class="type">void</span> <span class="keyword">main</span>() {
+    <span class="type">float</span> area;
+    area = PI * r * r;
+    printf(<span class="string">"Area is: %f"</span>, area);
+}
+<span class="comment">// 6. Subprogram Section (User defined functions go here)</span></code></pre>
+            </div>
+
+            <div class="card">
+                <h2>Primary Data Types</h2>
                 <table>
-                    <tr><th>Function</th><th>Meaning</th></tr>
-                    <tr><td><code>strlen(s1)</code></td><td>Returns length of the string[cite: 11].</td></tr>
-                    <tr><td><code>strcmp(s1,s2)</code></td><td>Compares two strings. Returns 0 if identical[cite: 11].</td></tr>
-                    <tr><td><code>strcpy(s1,s2)</code></td><td>Copies 2nd string to 1st string[cite: 11].</td></tr>
-                    <tr><td><code>strcat(s1,s2)</code></td><td>Appends 2nd string at the end of 1st string[cite: 11].</td></tr>
-                    <tr><td><code>strrev(s1)</code></td><td>Reverses given string[cite: 11].</td></tr>
+                    <tr><th>Data Type</th><th>Size</th><th>Range / Example</th></tr>
+                    <tr><td><code>int</code></td><td>2 Bytes (16 bits)</td><td>-32768 to 32767</td></tr>
+                    <tr><td><code>char</code></td><td>1 Byte (8 bits)</td><td>-128 to 127 (e.g., 'A')</td></tr>
+                    <tr><td><code>float</code></td><td>4 Bytes (32 bits)</td><td>6 decimal precision (e.g., 3.14159)</td></tr>
+                    <tr><td><code>double</code></td><td>8 Bytes (64 bits)</td><td>14 decimal precision</td></tr>
                 </table>
             </div>
         </section>
 
-        <!-- 6. Functions -->
-        <section id="functions">
-            <h1>6. Functions & Recursion</h1>
+        <!-- Unit 3 -->
+        <section id="control" class="fade-in">
+            <h1>3. Decision Control Structures</h1>
+            
             <div class="card">
-                <h2>User Defined Functions</h2>
-                <p>A block of code that performs a specific task. Has 3 parts: Declaration, Definition, and Call[cite: 11].</p>
+                <h2>The switch-case Statement</h2>
+                <p>It is a multi-way decision-making tool. Used when we have many choices (menu-driven programs).</p>
                 
-                <h2>Call by Value vs Call by Reference</h2>
-                <ul>
-                    <li><strong>Call by Value:</strong> Values of actual parameters are copied. Original values in the calling function remain unchanged[cite: 11].</li>
-                    <li><strong>Call by Reference:</strong> The address of actual parameters is passed. Original contents can be changed by the function[cite: 11].</li>
-                </ul>
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>યાદ રાખજો: <code>switch</code> માં <code>float</code> વેલ્યૂ ક્યારેય ના મુકાય. દરેક <code>case</code> પછી <code>break;</code> લખવું જરૂરી છે, નહિતર બધા જ કેસ રન થઇ જશે (જેને fall-through કહેવાય).</p>
+                </div>
 
-                <h2>Recursive Function</h2>
-                <p>A function that calls itself. Must have a terminating condition to avoid an infinite loop[cite: 11].</p>
+<pre><code><span class="type">int</span> choice = 2;
+<span class="keyword">switch</span> (choice) {
+    <span class="keyword">case</span> 1:
+        printf(<span class="string">"Option 1 Selected"</span>);
+        <span class="keyword">break</span>;
+    <span class="keyword">case</span> 2:
+        printf(<span class="string">"Option 2 Selected"</span>);
+        <span class="keyword">break</span>; <span class="comment">// Stops execution and exits switch</span>
+    <span class="keyword">default</span>:
+        printf(<span class="string">"Invalid Choice"</span>);
+}</code></pre>
+            </div>
+
+            <div class="card">
+                <h2>Conditional (Ternary) Operator (?:)</h2>
+                <p>The only operator taking 3 operands. Perfect alternative for simple if-else.</p>
+                <p><strong>Syntax:</strong> <code>Condition ? True_Execution : False_Execution;</code></p>
+<pre><code><span class="type">int</span> a = 50, b = 20, max;
+<span class="comment">// Read as: If a > b is true, return a, else return b.</span>
+max = (a > b) ? a : b; 
+printf(<span class="string">"Maximum is: %d"</span>, max);</code></pre>
+            </div>
+        </section>
+
+        <!-- Unit 4 -->
+        <section id="loops" class="fade-in">
+            <h1>4. Loop Control (Entry vs Exit)</h1>
+            
+            <div class="card">
+                <h2>Entry Control Loop vs Exit Control Loop</h2>
+                <p>This is the most frequently asked comparison. Present it exactly as a table.</p>
+
+                <table>
+                    <tr>
+                        <th>Entry Control Loop (while, for)</th>
+                        <th>Exit Control Loop (do-while)</th>
+                    </tr>
+                    <tr>
+                        <td>Condition is checked <b>FIRST</b>, before entering the body.</td>
+                        <td>Condition is checked <b>LAST</b>, after executing the body.</td>
+                    </tr>
+                    <tr>
+                        <td>If condition is false initially, it executes <b>ZERO</b> times.</td>
+                        <td>Even if false, it is guaranteed to execute <b>AT LEAST ONCE</b>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>while(i &lt; 5) { /* body */ }</code></td>
+                        <td><code>do { /* body */ } while(i &lt; 5);</code></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>Break, Continue & Goto</h2>
+                <ul>
+                    <li><strong>break:</strong> Jumps OUT of the loop entirely. Loop stops.</li>
+                    <li><strong>continue:</strong> Skips ONLY the current step and forces the next iteration of the loop.</li>
+                    <li><strong>goto:</strong> Jumps to a specific label anywhere in the code. Avoid using it as it creates "Spaghetti code".</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Unit 5 -->
+        <section id="arrays" class="fade-in">
+            <h1>5. Arrays & String Handling</h1>
+            
+            <div class="card">
+                <h2>String Handling Functions</h2>
+                <p>Strings are character arrays ending with <code>\0</code> (Null). Include <code>&lt;string.h&gt;</code> to use these magic functions:</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>દરેક ફંક્શનની સમજૂતી આપીને આ એક-એક લાઈનનું ઉદાહરણ બેઠું લખી દેવું.</p>
+                </div>
+
+                <details>
+                    <summary>1. strlen(s1) - Find Length</summary>
+                    <p>Returns the total number of characters (excluding \0).</p>
+                    <pre><code><span class="type">int</span> len = strlen(<span class="string">"Pranav"</span>); <span class="comment">// Returns 6</span></code></pre>
+                </details>
+                
+                <details>
+                    <summary>2. strcpy(s1, s2) - Copy String</summary>
+                    <p>Copies the contents of string s2 into string s1.</p>
+                    <pre><code>strcpy(dest, <span class="string">"Hello"</span>); <span class="comment">// dest becomes "Hello"</span></code></pre>
+                </details>
+
+                <details>
+                    <summary>3. strcat(s1, s2) - Concatenate (Join)</summary>
+                    <p>Appends string s2 at the end of string s1.</p>
+                    <pre><code>strcat(s1, <span class="string">" World"</span>); <span class="comment">// If s1 was "Hello", it becomes "Hello World"</span></code></pre>
+                </details>
+
+                <details>
+                    <summary>4. strcmp(s1, s2) - Compare</summary>
+                    <p>Returns 0 if both strings are exactly identical. Returns negative or positive if they differ.</p>
+                    <pre><code><span class="keyword">if</span>(strcmp(pass, <span class="string">"123"</span>) == 0) { printf(<span class="string">"Match!"</span>); }</code></pre>
+                </details>
+            </div>
+        </section>
+
+        <!-- Unit 6 -->
+        <section id="functions" class="fade-in">
+            <h1>6. Functions & Recursion</h1>
+            
+            <div class="card">
+                <h2>Elements of User Defined Function</h2>
+                <ol>
+                    <li><strong>Function Declaration (Prototype):</strong> Tells compiler the return type and parameters. E.g., <code>int sum(int, int);</code></li>
+                    <li><strong>Function Call:</strong> Invoking the function to do its job. E.g., <code>ans = sum(10, 20);</code></li>
+                    <li><strong>Function Definition:</strong> The actual coding logic inside the block.</li>
+                </ol>
+
+                <h2>Recursion</h2>
+                <p>When a function calls ITSELF inside its own body to solve smaller instances of the same problem. Must have a base case to prevent infinite loops.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>Recursion નો પ્રશ્ન પૂછાય એટલે આ ફેક્ટોરિયલ (Factorial) નો પ્રોગ્રામ છાપી જ મારવો. આ સૌથી બેસ્ટ ઉદાહરણ છે.</p>
+                </div>
+
 <pre><code><span class="type">int</span> <span class="function">fact</span>(<span class="type">int</span> n) {
-    <span class="keyword">if</span>(n == 1) <span class="keyword">return</span> 1;
-    <span class="keyword">else return</span> n * <span class="function">fact</span>(n-1);
+    <span class="comment">// Base Condition</span>
+    <span class="keyword">if</span>(n == 1) <span class="keyword">return</span> 1; 
+    
+    <span class="comment">// Recursive Call</span>
+    <span class="keyword">else return</span> n * <span class="function">fact</span>(n - 1); 
 }</code></pre>
             </div>
         </section>
 
-        <!-- 7. Pointers -->
-        <section id="pointers">
+        <!-- Unit 7 -->
+        <section id="pointers" class="fade-in">
             <h1>7. Pointers</h1>
+            
             <div class="card">
-                <h2>Concept</h2>
-                <p>A pointer is a variable that contains the address or location of another variable[cite: 11].</p>
+                <h2>What is a Pointer?</h2>
+                <p>A pointer is a special variable that stores the <strong>Memory Address</strong> of another variable, instead of storing a normal value.</p>
                 <ul>
-                    <li><code>&amp;</code> (Address operator): Returns memory address[cite: 11].</li>
-                    <li><code>*</code> (Dereferencing operator): Returns value stored at that address[cite: 11].</li>
+                    <li><code>&amp;</code> : Address of operator. Gets the memory location.</li>
+                    <li><code>*</code> : Dereference operator. Gets the value stored AT that memory location.</li>
                 </ul>
-<pre><code><span class="type">int</span> a = 10, *p;
-p = &amp;a; <span class="comment">// p now stores address of a</span></code></pre>
 
-                <h2>Array vs Pointer</h2>
-                <p>An array name is a constant pointer to the first element of the array. <code>a[i]</code> is exactly the same as <code>*(a+i)</code>[cite: 11].</p>
-            </div>
-        </section>
+<pre><code><span class="type">int</span> a = 10;
+<span class="type">int</span> *p;    <span class="comment">// Declaration of pointer</span>
+p = &amp;a;    <span class="comment">// p now holds the address of a (e.g., 5000)</span>
+printf(<span class="string">"%d"</span>, *p); <span class="comment">// Prints 10 (value at address 5000)</span></code></pre>
 
-        <!-- 8. Structures -->
-        <section id="structures">
-            <h1>8. Structures & Unions</h1>
-            <div class="card">
-                <h2>Structure</h2>
-                <p>A collection of logically related data items of different data types grouped under a single name[cite: 11].</p>
-<pre><code><span class="keyword">struct</span> book {
-    <span class="type">char</span> title[100];
-    <span class="type">float</span> price;
-} b1;</code></pre>
-                
-                <h2>Structure vs Union</h2>
+                <h2>Call by Value vs Call by Reference</h2>
                 <table>
-                    <tr><th>Structure</th><th>Union</th></tr>
-                    <tr><td>Each member is assigned its own unique storage area[cite: 11].</td><td>All members share the same storage area[cite: 11].</td></tr>
-                    <tr><td>Total memory = sum of all members' memory[cite: 11].</td><td>Memory = maximum memory required by the largest member[cite: 11].</td></tr>
-                    <tr><td>All members are active at a time[cite: 11].</td><td>Only one member is active at a time[cite: 11].</td></tr>
+                    <tr><th>Call by Value</th><th>Call by Reference (Using Pointers)</th></tr>
+                    <tr><td>Passes a COPY of the actual arguments.</td><td>Passes the ADDRESS (&) of actual arguments.</td></tr>
+                    <tr><td>Changes made inside the function DO NOT affect original variables.</td><td>Changes made inside the function DO affect original variables.</td></tr>
                 </table>
             </div>
         </section>
 
-        <!-- 9. File Handling -->
-        <section id="files">
-            <h1>9. File Handling</h1>
+        <!-- Unit 8 -->
+        <section id="struct" class="fade-in">
+            <h1>8. Structure vs Union</h1>
+            
             <div class="card">
-                <h2>File Opening Modes</h2>
-                <ul>
-                    <li><code>r</code> : Open for reading only[cite: 11].</li>
-                    <li><code>w</code> : Open for writing (overwrites if exists)[cite: 11].</li>
-                    <li><code>a</code> : Open for appending (adds to end)[cite: 11].</li>
-                </ul>
+                <h2>Comparison (MIMP)</h2>
+                <p>Both are user-defined data types used to group different data types together. But memory management is different.</p>
+                
+                <div class="exam-tip">
+                    <strong>🎯 Exam Tip:</strong>
+                    <p>આ તફાવત પૂછાય ત્યારે ઉદાહરણમાં સાઈઝની ગણતરી (Total Bytes) બતાવવી. માર્ક્સ કપાશે જ નહિ.</p>
+                </div>
 
-                <h2>File Functions</h2>
-                <p><code>fopen()</code>, <code>fclose()</code>, <code>fprintf()</code>, <code>fscanf()</code>, <code>getc()</code>, <code>putc()</code>, <code>fseek()</code>, <code>ftell()</code>, <code>rewind()</code>[cite: 11].</p>
+                <table>
+                    <tr>
+                        <th>Structure (struct)</th>
+                        <th>Union (union)</th>
+                    </tr>
+                    <tr>
+                        <td>Each member gets its own separate memory space.</td>
+                        <td>All members SHARE the same memory space.</td>
+                    </tr>
+                    <tr>
+                        <td>Size = Sum of sizes of all members.</td>
+                        <td>Size = Size of the largest member only.</td>
+                    </tr>
+                    <tr>
+                        <td>All members can be accessed at the same time.</td>
+                        <td>Only one member can be accessed at a time.</td>
+                    </tr>
+                </table>
+
+<pre><code><span class="comment">// Structure Memory: 2(int) + 4(float) + 1(char) = 7 Bytes Total Space</span>
+<span class="keyword">struct</span> Employee {
+    <span class="type">int</span> id;
+    <span class="type">float</span> salary;
+    <span class="type">char</span> grade;
+};
+
+<span class="comment">// Union Memory: 4 Bytes Total Space (Float is the largest)</span>
+<span class="keyword">union</span> Employee {
+    <span class="type">int</span> id;
+    <span class="type">float</span> salary;
+    <span class="type">char</span> grade;
+};</code></pre>
             </div>
         </section>
 
-        <!-- 10. DMA -->
-        <section id="dma">
-            <h1>10. Dynamic Memory Allocation & Storage Classes</h1>
+        <!-- Unit 9 & 10 -->
+        <section id="file-dma" class="fade-in">
+            <h1>9. File Handling & Dynamic Memory Allocation (DMA)</h1>
+            
             <div class="card">
-                <h2>DMA Functions</h2>
+                <h2>File Handling Modes</h2>
                 <ul>
-                    <li><code>malloc()</code>: Allocates uninitialized memory from heap[cite: 11].</li>
-                    <li><code>calloc()</code>: Allocates block of memory and initializes to zero[cite: 11].</li>
-                    <li><code>realloc()</code>: Reallocates memory block with a new size[cite: 11].</li>
-                    <li><code>free()</code>: Releases the allocated memory[cite: 11].</li>
+                    <li><code>r</code> : Open for reading (Error if file doesn't exist).</li>
+                    <li><code>w</code> : Open for writing (Creates new file or overwrites existing).</li>
+                    <li><code>a</code> : Open for appending (Adds data to the end of existing file).</li>
                 </ul>
 
-                <h2>Storage Classes</h2>
-                <p>Decides the scope, lifetime, and memory allocation of a variable[cite: 11]:</p>
+                <h2>Dynamic Memory Allocation (DMA)</h2>
+                <p>Allocating memory at runtime (while program is running) from the Heap. <code>&lt;stdlib.h&gt;</code> is required.</p>
                 <ul>
-                    <li><strong>auto:</strong> Local scope, garbage default value[cite: 11].</li>
-                    <li><strong>register:</strong> Stored in CPU registers for fast access[cite: 11].</li>
-                    <li><strong>extern:</strong> Global variables accessible throughout the program[cite: 11].</li>
-                    <li><strong>static:</strong> Retains its value between multiple function calls[cite: 11].</li>
+                    <li><code>malloc()</code> : Allocates single block of uninitialized memory.</li>
+                    <li><code>calloc()</code> : Allocates multiple blocks and initializes them to zero (0).</li>
+                    <li><code>realloc()</code> : Resizes previously allocated memory.</li>
+                    <li><code>free()</code> : Releases memory back to the system to prevent memory leaks.</li>
                 </ul>
             </div>
         </section>
 
     </main>
 
+    <!-- Scroll Animation Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll(".fade-in");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
